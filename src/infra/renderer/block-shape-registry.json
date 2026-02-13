@@ -1,0 +1,2269 @@
+{
+  "version": "1.21",
+  "lastUpdated": "2025-01-28",
+  "description": "Minecraft block shape definitions for 3D rendering (0-16 scale, Minecraft model format)",
+  "shapes": {
+    "full": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [0, 0, 0], "to": [16, 16, 16] }]
+      },
+      "rotatable": false,
+      "connectable": null
+    },
+    "stairs": {
+      "geometry": {
+        "type": "multi_box",
+        "boxes": [
+          { "from": [0, 0, 0], "to": [16, 8, 16] },
+          { "from": [0, 8, 8], "to": [16, 16, 16] }
+        ]
+      },
+      "rotatable": true,
+      "connectable": null,
+      "variants": {
+        "straight": {
+          "boxes": [
+            { "from": [0, 0, 0], "to": [16, 8, 16] },
+            { "from": [0, 8, 8], "to": [16, 16, 16] }
+          ]
+        },
+        "inner_left": {
+          "boxes": [
+            { "from": [0, 0, 0], "to": [16, 8, 16] },
+            { "from": [0, 8, 8], "to": [16, 16, 16] },
+            { "from": [0, 8, 0], "to": [8, 16, 8] }
+          ]
+        },
+        "inner_right": {
+          "boxes": [
+            { "from": [0, 0, 0], "to": [16, 8, 16] },
+            { "from": [0, 8, 8], "to": [16, 16, 16] },
+            { "from": [8, 8, 0], "to": [16, 16, 8] }
+          ]
+        },
+        "outer_left": {
+          "boxes": [
+            { "from": [0, 0, 0], "to": [16, 8, 16] },
+            { "from": [8, 8, 8], "to": [16, 16, 16] }
+          ]
+        },
+        "outer_right": {
+          "boxes": [
+            { "from": [0, 0, 0], "to": [16, 8, 16] },
+            { "from": [0, 8, 8], "to": [8, 16, 16] }
+          ]
+        }
+      }
+    },
+    "slab": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [0, 0, 0], "to": [16, 8, 16] }]
+      },
+      "rotatable": false,
+      "connectable": null,
+      "variants": {
+        "bottom": {
+          "boxes": [{ "from": [0, 0, 0], "to": [16, 8, 16] }]
+        },
+        "top": {
+          "boxes": [{ "from": [0, 8, 0], "to": [16, 16, 16] }]
+        },
+        "double": {
+          "boxes": [{ "from": [0, 0, 0], "to": [16, 16, 16] }]
+        }
+      }
+    },
+    "fence": {
+      "geometry": {
+        "type": "multi_box",
+        "boxes": [
+          { "from": [6, 0, 6], "to": [10, 16, 10] }
+        ]
+      },
+      "rotatable": false,
+      "connectable": "horizontal",
+      "connections": {
+        "north": [
+          { "from": [7, 12, 0], "to": [9, 15, 6] },
+          { "from": [7, 6, 0], "to": [9, 9, 6] }
+        ],
+        "south": [
+          { "from": [7, 12, 10], "to": [9, 15, 16] },
+          { "from": [7, 6, 10], "to": [9, 9, 16] }
+        ],
+        "east": [
+          { "from": [10, 12, 7], "to": [16, 15, 9] },
+          { "from": [10, 6, 7], "to": [16, 9, 9] }
+        ],
+        "west": [
+          { "from": [0, 12, 7], "to": [6, 15, 9] },
+          { "from": [0, 6, 7], "to": [6, 9, 9] }
+        ]
+      }
+    },
+    "fence_gate": {
+      "geometry": {
+        "type": "multi_box",
+        "boxes": [
+          { "from": [0, 5, 7], "to": [2, 16, 9] },
+          { "from": [14, 5, 7], "to": [16, 16, 9] },
+          { "from": [2, 6, 7], "to": [14, 15, 9] }
+        ]
+      },
+      "rotatable": true,
+      "connectable": null,
+      "variants": {
+        "closed": {
+          "boxes": [
+            { "from": [0, 5, 7], "to": [2, 16, 9] },
+            { "from": [14, 5, 7], "to": [16, 16, 9] },
+            { "from": [2, 6, 7], "to": [14, 15, 9] }
+          ]
+        },
+        "open": {
+          "boxes": [
+            { "from": [0, 5, 7], "to": [2, 16, 9] },
+            { "from": [14, 5, 7], "to": [16, 16, 9] },
+            { "from": [0, 6, 13], "to": [2, 15, 16] },
+            { "from": [14, 6, 13], "to": [16, 15, 16] }
+          ]
+        }
+      }
+    },
+    "wall": {
+      "geometry": {
+        "type": "multi_box",
+        "boxes": [
+          { "from": [4, 0, 4], "to": [12, 16, 12] }
+        ]
+      },
+      "rotatable": false,
+      "connectable": "horizontal",
+      "connections": {
+        "north": {
+          "low": [{ "from": [5, 0, 0], "to": [11, 14, 4] }],
+          "tall": [{ "from": [5, 0, 0], "to": [11, 16, 4] }]
+        },
+        "south": {
+          "low": [{ "from": [5, 0, 12], "to": [11, 14, 16] }],
+          "tall": [{ "from": [5, 0, 12], "to": [11, 16, 16] }]
+        },
+        "east": {
+          "low": [{ "from": [12, 0, 5], "to": [16, 14, 11] }],
+          "tall": [{ "from": [12, 0, 5], "to": [16, 16, 11] }]
+        },
+        "west": {
+          "low": [{ "from": [0, 0, 5], "to": [4, 14, 11] }],
+          "tall": [{ "from": [0, 0, 5], "to": [4, 16, 11] }]
+        }
+      },
+      "postVariants": {
+        "none": [],
+        "low": [{ "from": [4, 0, 4], "to": [12, 14, 12] }],
+        "tall": [{ "from": [4, 0, 4], "to": [12, 16, 12] }]
+      }
+    },
+    "door": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [0, 0, 0], "to": [16, 16, 3] }]
+      },
+      "rotatable": true,
+      "connectable": null,
+      "height": 2,
+      "variants": {
+        "closed": {
+          "boxes": [{ "from": [0, 0, 0], "to": [16, 16, 3] }]
+        },
+        "open_left": {
+          "boxes": [{ "from": [0, 0, 0], "to": [3, 16, 16] }]
+        },
+        "open_right": {
+          "boxes": [{ "from": [13, 0, 0], "to": [16, 16, 16] }]
+        }
+      }
+    },
+    "trapdoor": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [0, 0, 0], "to": [16, 3, 16] }]
+      },
+      "rotatable": true,
+      "connectable": null,
+      "variants": {
+        "bottom_closed": {
+          "boxes": [{ "from": [0, 0, 0], "to": [16, 3, 16] }]
+        },
+        "top_closed": {
+          "boxes": [{ "from": [0, 13, 0], "to": [16, 16, 16] }]
+        },
+        "open_north": {
+          "boxes": [{ "from": [0, 0, 13], "to": [16, 16, 16] }]
+        },
+        "open_south": {
+          "boxes": [{ "from": [0, 0, 0], "to": [16, 16, 3] }]
+        },
+        "open_east": {
+          "boxes": [{ "from": [0, 0, 0], "to": [3, 16, 16] }]
+        },
+        "open_west": {
+          "boxes": [{ "from": [13, 0, 0], "to": [16, 16, 16] }]
+        }
+      }
+    },
+    "pressure_plate": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [1, 0, 1], "to": [15, 1, 15] }]
+      },
+      "rotatable": false,
+      "connectable": null,
+      "variants": {
+        "unpressed": {
+          "boxes": [{ "from": [1, 0, 1], "to": [15, 1, 15] }]
+        },
+        "pressed": {
+          "boxes": [{ "from": [1, 0, 1], "to": [15, 0.5, 15] }]
+        }
+      }
+    },
+    "button": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [5, 0, 6], "to": [11, 2, 10] }]
+      },
+      "rotatable": true,
+      "connectable": null,
+      "variants": {
+        "floor": {
+          "boxes": [{ "from": [5, 0, 6], "to": [11, 2, 10] }]
+        },
+        "ceiling": {
+          "boxes": [{ "from": [5, 14, 6], "to": [11, 16, 10] }]
+        },
+        "wall_north": {
+          "boxes": [{ "from": [5, 6, 14], "to": [11, 10, 16] }]
+        },
+        "wall_south": {
+          "boxes": [{ "from": [5, 6, 0], "to": [11, 10, 2] }]
+        },
+        "wall_east": {
+          "boxes": [{ "from": [0, 6, 5], "to": [2, 10, 11] }]
+        },
+        "wall_west": {
+          "boxes": [{ "from": [14, 6, 5], "to": [16, 10, 11] }]
+        }
+      }
+    },
+    "torch": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [7, 0, 7], "to": [9, 10, 9] }]
+      },
+      "rotatable": true,
+      "connectable": null,
+      "variants": {
+        "floor": {
+          "boxes": [{ "from": [7, 0, 7], "to": [9, 10, 9] }]
+        },
+        "wall_north": {
+          "boxes": [{ "from": [7, 3, 11], "to": [9, 13, 13] }],
+          "rotation": { "axis": "x", "angle": -22.5, "origin": [8, 8, 12] }
+        },
+        "wall_south": {
+          "boxes": [{ "from": [7, 3, 3], "to": [9, 13, 5] }],
+          "rotation": { "axis": "x", "angle": 22.5, "origin": [8, 8, 4] }
+        },
+        "wall_east": {
+          "boxes": [{ "from": [3, 3, 7], "to": [5, 13, 9] }],
+          "rotation": { "axis": "z", "angle": 22.5, "origin": [4, 8, 8] }
+        },
+        "wall_west": {
+          "boxes": [{ "from": [11, 3, 7], "to": [13, 13, 9] }],
+          "rotation": { "axis": "z", "angle": -22.5, "origin": [12, 8, 8] }
+        }
+      }
+    },
+    "carpet": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [0, 0, 0], "to": [16, 1, 16] }]
+      },
+      "rotatable": false,
+      "connectable": null
+    },
+    "glass_pane": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [7, 0, 7], "to": [9, 16, 9] }]
+      },
+      "rotatable": false,
+      "connectable": "horizontal",
+      "connections": {
+        "north": [{ "from": [7, 0, 0], "to": [9, 16, 7] }],
+        "south": [{ "from": [7, 0, 9], "to": [9, 16, 16] }],
+        "east": [{ "from": [9, 0, 7], "to": [16, 16, 9] }],
+        "west": [{ "from": [0, 0, 7], "to": [7, 16, 9] }]
+      }
+    },
+    "chain": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [6.5, 0, 6.5], "to": [9.5, 16, 9.5] }]
+      },
+      "rotatable": true,
+      "connectable": null,
+      "variants": {
+        "y": {
+          "boxes": [{ "from": [6.5, 0, 6.5], "to": [9.5, 16, 9.5] }]
+        },
+        "x": {
+          "boxes": [{ "from": [0, 6.5, 6.5], "to": [16, 9.5, 9.5] }]
+        },
+        "z": {
+          "boxes": [{ "from": [6.5, 6.5, 0], "to": [9.5, 9.5, 16] }]
+        }
+      }
+    },
+    "lantern": {
+      "geometry": {
+        "type": "multi_box",
+        "boxes": [
+          { "from": [5, 0, 5], "to": [11, 7, 11] },
+          { "from": [6, 7, 6], "to": [10, 8, 10] },
+          { "from": [7, 8, 7], "to": [9, 9, 9] }
+        ]
+      },
+      "rotatable": false,
+      "connectable": null,
+      "variants": {
+        "floor": {
+          "boxes": [
+            { "from": [5, 0, 5], "to": [11, 7, 11] },
+            { "from": [6, 7, 6], "to": [10, 8, 10] },
+            { "from": [7, 8, 7], "to": [9, 9, 9] }
+          ]
+        },
+        "hanging": {
+          "boxes": [
+            { "from": [5, 1, 5], "to": [11, 8, 11] },
+            { "from": [6, 8, 6], "to": [10, 9, 10] },
+            { "from": [7, 9, 7], "to": [9, 16, 9] }
+          ]
+        }
+      }
+    },
+    "cross": {
+      "geometry": {
+        "type": "cross",
+        "boxes": [
+          { "from": [0.8, 0, 8], "to": [15.2, 16, 8], "rotation": { "axis": "y", "angle": 45, "origin": [8, 8, 8] } },
+          { "from": [8, 0, 0.8], "to": [8, 16, 15.2], "rotation": { "axis": "y", "angle": 45, "origin": [8, 8, 8] } }
+        ]
+      },
+      "rotatable": false,
+      "connectable": null
+    },
+    "lever": {
+      "geometry": {
+        "type": "multi_box",
+        "boxes": [
+          { "from": [5, 0, 4], "to": [11, 3, 12] },
+          { "from": [7, 1, 7], "to": [9, 11, 9] }
+        ]
+      },
+      "rotatable": true,
+      "connectable": null,
+      "variants": {
+        "floor_north": {
+          "boxes": [
+            { "from": [5, 0, 4], "to": [11, 3, 12] },
+            { "from": [7, 1, 7], "to": [9, 11, 9] }
+          ]
+        },
+        "floor_east": {
+          "boxes": [
+            { "from": [4, 0, 5], "to": [12, 3, 11] },
+            { "from": [7, 1, 7], "to": [9, 11, 9] }
+          ]
+        },
+        "wall_north": {
+          "boxes": [
+            { "from": [5, 4, 13], "to": [11, 12, 16] },
+            { "from": [7, 7, 5], "to": [9, 9, 15] }
+          ]
+        },
+        "wall_south": {
+          "boxes": [
+            { "from": [5, 4, 0], "to": [11, 12, 3] },
+            { "from": [7, 7, 1], "to": [9, 9, 11] }
+          ]
+        },
+        "wall_east": {
+          "boxes": [
+            { "from": [0, 4, 5], "to": [3, 12, 11] },
+            { "from": [1, 7, 7], "to": [11, 9, 9] }
+          ]
+        },
+        "wall_west": {
+          "boxes": [
+            { "from": [13, 4, 5], "to": [16, 12, 11] },
+            { "from": [5, 7, 7], "to": [15, 9, 9] }
+          ]
+        },
+        "ceiling_north": {
+          "boxes": [
+            { "from": [5, 13, 4], "to": [11, 16, 12] },
+            { "from": [7, 5, 7], "to": [9, 15, 9] }
+          ]
+        },
+        "ceiling_east": {
+          "boxes": [
+            { "from": [4, 13, 5], "to": [12, 16, 11] },
+            { "from": [7, 5, 7], "to": [9, 15, 9] }
+          ]
+        }
+      }
+    },
+    "sign": {
+      "geometry": {
+        "type": "multi_box",
+        "boxes": [
+          { "from": [0, 7, 7], "to": [16, 15, 9] },
+          { "from": [7, 0, 7], "to": [9, 7, 9] }
+        ]
+      },
+      "rotatable": true,
+      "connectable": null,
+      "variants": {
+        "standing": {
+          "boxes": [
+            { "from": [0, 7, 7], "to": [16, 15, 9] },
+            { "from": [7, 0, 7], "to": [9, 7, 9] }
+          ]
+        },
+        "wall_north": {
+          "boxes": [{ "from": [0, 4.5, 14], "to": [16, 12.5, 16] }]
+        },
+        "wall_south": {
+          "boxes": [{ "from": [0, 4.5, 0], "to": [16, 12.5, 2] }]
+        },
+        "wall_east": {
+          "boxes": [{ "from": [0, 4.5, 0], "to": [2, 12.5, 16] }]
+        },
+        "wall_west": {
+          "boxes": [{ "from": [14, 4.5, 0], "to": [16, 12.5, 16] }]
+        }
+      }
+    },
+    "hanging_sign": {
+      "geometry": {
+        "type": "multi_box",
+        "boxes": [
+          { "from": [1, 0, 7], "to": [15, 10, 9] },
+          { "from": [4, 10, 7.5], "to": [5, 16, 8.5] },
+          { "from": [11, 10, 7.5], "to": [12, 16, 8.5] }
+        ]
+      },
+      "rotatable": true,
+      "connectable": null
+    },
+    "banner": {
+      "geometry": {
+        "type": "multi_box",
+        "boxes": [
+          { "from": [4, 0, 7], "to": [12, 28, 9] },
+          { "from": [7, 28, 7], "to": [9, 42, 9] }
+        ]
+      },
+      "rotatable": true,
+      "connectable": null,
+      "variants": {
+        "standing": {
+          "boxes": [
+            { "from": [4, 0, 7], "to": [12, 28, 9] },
+            { "from": [7, 28, 7], "to": [9, 42, 9] }
+          ]
+        },
+        "wall": {
+          "boxes": [{ "from": [1, 0, 14], "to": [15, 28, 16] }]
+        }
+      }
+    },
+    "bed": {
+      "geometry": {
+        "type": "multi_box",
+        "boxes": [
+          { "from": [0, 3, 0], "to": [16, 9, 16] },
+          { "from": [0, 0, 0], "to": [3, 3, 3] },
+          { "from": [13, 0, 0], "to": [16, 3, 3] },
+          { "from": [0, 0, 13], "to": [3, 3, 16] },
+          { "from": [13, 0, 13], "to": [16, 3, 16] }
+        ]
+      },
+      "rotatable": true,
+      "connectable": null,
+      "length": 2
+    },
+    "chest": {
+      "geometry": {
+        "type": "multi_box",
+        "boxes": [
+          { "from": [1, 0, 1], "to": [15, 10, 15] },
+          { "from": [7, 7, 0], "to": [9, 11, 1] }
+        ]
+      },
+      "rotatable": true,
+      "connectable": null,
+      "variants": {
+        "single": {
+          "boxes": [
+            { "from": [1, 0, 1], "to": [15, 10, 15] },
+            { "from": [7, 7, 0], "to": [9, 11, 1] }
+          ]
+        },
+        "left": {
+          "boxes": [
+            { "from": [0, 0, 1], "to": [15, 10, 15] },
+            { "from": [7, 7, 0], "to": [9, 11, 1] }
+          ]
+        },
+        "right": {
+          "boxes": [
+            { "from": [1, 0, 1], "to": [16, 10, 15] },
+            { "from": [7, 7, 0], "to": [9, 11, 1] }
+          ]
+        }
+      }
+    },
+    "anvil": {
+      "geometry": {
+        "type": "multi_box",
+        "boxes": [
+          { "from": [2, 0, 2], "to": [14, 4, 14] },
+          { "from": [4, 4, 3], "to": [12, 5, 13] },
+          { "from": [6, 5, 4], "to": [10, 10, 12] },
+          { "from": [3, 10, 0], "to": [13, 16, 16] }
+        ]
+      },
+      "rotatable": true,
+      "connectable": null
+    },
+    "cauldron": {
+      "geometry": {
+        "type": "multi_box",
+        "boxes": [
+          { "from": [0, 3, 0], "to": [2, 16, 16] },
+          { "from": [14, 3, 0], "to": [16, 16, 16] },
+          { "from": [2, 3, 0], "to": [14, 16, 2] },
+          { "from": [2, 3, 14], "to": [14, 16, 16] },
+          { "from": [0, 0, 0], "to": [4, 3, 2] },
+          { "from": [12, 0, 0], "to": [16, 3, 2] },
+          { "from": [0, 0, 14], "to": [4, 3, 16] },
+          { "from": [12, 0, 14], "to": [16, 3, 16] },
+          { "from": [2, 0, 2], "to": [14, 3, 14] }
+        ]
+      },
+      "rotatable": false,
+      "connectable": null
+    },
+    "hopper": {
+      "geometry": {
+        "type": "multi_box",
+        "boxes": [
+          { "from": [0, 10, 0], "to": [16, 16, 16] },
+          { "from": [4, 4, 4], "to": [12, 10, 12] },
+          { "from": [6, 0, 6], "to": [10, 4, 10] }
+        ]
+      },
+      "rotatable": true,
+      "connectable": null,
+      "variants": {
+        "down": {
+          "boxes": [
+            { "from": [0, 10, 0], "to": [16, 16, 16] },
+            { "from": [4, 4, 4], "to": [12, 10, 12] },
+            { "from": [6, 0, 6], "to": [10, 4, 10] }
+          ]
+        },
+        "north": {
+          "boxes": [
+            { "from": [0, 10, 0], "to": [16, 16, 16] },
+            { "from": [4, 4, 4], "to": [12, 10, 12] },
+            { "from": [6, 4, 0], "to": [10, 8, 4] }
+          ]
+        },
+        "south": {
+          "boxes": [
+            { "from": [0, 10, 0], "to": [16, 16, 16] },
+            { "from": [4, 4, 4], "to": [12, 10, 12] },
+            { "from": [6, 4, 12], "to": [10, 8, 16] }
+          ]
+        },
+        "east": {
+          "boxes": [
+            { "from": [0, 10, 0], "to": [16, 16, 16] },
+            { "from": [4, 4, 4], "to": [12, 10, 12] },
+            { "from": [12, 4, 6], "to": [16, 8, 10] }
+          ]
+        },
+        "west": {
+          "boxes": [
+            { "from": [0, 10, 0], "to": [16, 16, 16] },
+            { "from": [4, 4, 4], "to": [12, 10, 12] },
+            { "from": [0, 4, 6], "to": [4, 8, 10] }
+          ]
+        }
+      }
+    },
+    "brewing_stand": {
+      "geometry": {
+        "type": "multi_box",
+        "boxes": [
+          { "from": [1, 0, 1], "to": [15, 2, 15] },
+          { "from": [7, 0, 7], "to": [9, 14, 9] }
+        ]
+      },
+      "rotatable": false,
+      "connectable": null
+    },
+    "enchanting_table": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [0, 0, 0], "to": [16, 12, 16] }]
+      },
+      "rotatable": false,
+      "connectable": null
+    },
+    "end_portal_frame": {
+      "geometry": {
+        "type": "multi_box",
+        "boxes": [{ "from": [0, 0, 0], "to": [16, 13, 16] }]
+      },
+      "rotatable": true,
+      "connectable": null,
+      "variants": {
+        "empty": {
+          "boxes": [{ "from": [0, 0, 0], "to": [16, 13, 16] }]
+        },
+        "filled": {
+          "boxes": [
+            { "from": [0, 0, 0], "to": [16, 13, 16] },
+            { "from": [4, 13, 4], "to": [12, 16, 12] }
+          ]
+        }
+      }
+    },
+    "dragon_egg": {
+      "geometry": {
+        "type": "multi_box",
+        "boxes": [
+          { "from": [6, 0, 6], "to": [10, 1, 10] },
+          { "from": [5, 1, 5], "to": [11, 2, 11] },
+          { "from": [4, 2, 4], "to": [12, 3, 12] },
+          { "from": [3, 3, 3], "to": [13, 4, 13] },
+          { "from": [2, 4, 2], "to": [14, 7, 14] },
+          { "from": [1, 7, 1], "to": [15, 10, 15] },
+          { "from": [2, 10, 2], "to": [14, 13, 14] },
+          { "from": [3, 13, 3], "to": [13, 14, 13] },
+          { "from": [4, 14, 4], "to": [12, 15, 12] },
+          { "from": [5, 15, 5], "to": [11, 16, 11] }
+        ]
+      },
+      "rotatable": false,
+      "connectable": null
+    },
+    "bell": {
+      "geometry": {
+        "type": "multi_box",
+        "boxes": [
+          { "from": [4, 4, 4], "to": [12, 13, 12] },
+          { "from": [5, 13, 5], "to": [11, 16, 11] }
+        ]
+      },
+      "rotatable": true,
+      "connectable": null,
+      "variants": {
+        "floor": {
+          "boxes": [
+            { "from": [0, 0, 4], "to": [16, 16, 12] }
+          ]
+        },
+        "ceiling": {
+          "boxes": [
+            { "from": [4, 4, 4], "to": [12, 13, 12] },
+            { "from": [5, 13, 5], "to": [11, 16, 11] }
+          ]
+        },
+        "single_wall": {
+          "boxes": [
+            { "from": [4, 4, 4], "to": [12, 13, 12] },
+            { "from": [5, 13, 5], "to": [11, 16, 11] }
+          ]
+        },
+        "double_wall": {
+          "boxes": [
+            { "from": [4, 4, 4], "to": [12, 13, 12] },
+            { "from": [5, 13, 5], "to": [11, 16, 11] }
+          ]
+        }
+      }
+    },
+    "campfire": {
+      "geometry": {
+        "type": "multi_box",
+        "boxes": [
+          { "from": [0, 0, 0], "to": [16, 7, 16] }
+        ]
+      },
+      "rotatable": true,
+      "connectable": null
+    },
+    "grindstone": {
+      "geometry": {
+        "type": "multi_box",
+        "boxes": [
+          { "from": [2, 4, 2], "to": [14, 12, 14] }
+        ]
+      },
+      "rotatable": true,
+      "connectable": null,
+      "variants": {
+        "floor": {
+          "boxes": [
+            { "from": [2, 0, 6], "to": [4, 7, 10] },
+            { "from": [12, 0, 6], "to": [14, 7, 10] },
+            { "from": [2, 7, 4], "to": [14, 13, 12] }
+          ]
+        },
+        "wall": {
+          "boxes": [
+            { "from": [2, 4, 2], "to": [14, 12, 14] }
+          ]
+        },
+        "ceiling": {
+          "boxes": [
+            { "from": [2, 9, 6], "to": [4, 16, 10] },
+            { "from": [12, 9, 6], "to": [14, 16, 10] },
+            { "from": [2, 3, 4], "to": [14, 9, 12] }
+          ]
+        }
+      }
+    },
+    "lectern": {
+      "geometry": {
+        "type": "multi_box",
+        "boxes": [
+          { "from": [0, 0, 0], "to": [16, 2, 16] },
+          { "from": [4, 2, 4], "to": [12, 14, 12] },
+          { "from": [0, 10, 0], "to": [16, 14, 16] }
+        ]
+      },
+      "rotatable": true,
+      "connectable": null
+    },
+    "stonecutter": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [0, 0, 0], "to": [16, 9, 16] }]
+      },
+      "rotatable": true,
+      "connectable": null
+    },
+    "composter": {
+      "geometry": {
+        "type": "multi_box",
+        "boxes": [
+          { "from": [0, 0, 0], "to": [2, 16, 16] },
+          { "from": [14, 0, 0], "to": [16, 16, 16] },
+          { "from": [2, 0, 0], "to": [14, 16, 2] },
+          { "from": [2, 0, 14], "to": [14, 16, 16] },
+          { "from": [2, 0, 2], "to": [14, 2, 14] }
+        ]
+      },
+      "rotatable": false,
+      "connectable": null
+    },
+    "beehive": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [0, 0, 0], "to": [16, 16, 16] }]
+      },
+      "rotatable": true,
+      "connectable": null
+    },
+    "candle": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [7, 0, 7], "to": [9, 6, 9] }]
+      },
+      "rotatable": false,
+      "connectable": null,
+      "variants": {
+        "1": {
+          "boxes": [{ "from": [7, 0, 7], "to": [9, 6, 9] }]
+        },
+        "2": {
+          "boxes": [
+            { "from": [6, 0, 6], "to": [8, 6, 8] },
+            { "from": [8, 0, 8], "to": [10, 5, 10] }
+          ]
+        },
+        "3": {
+          "boxes": [
+            { "from": [5, 0, 7], "to": [7, 6, 9] },
+            { "from": [7, 0, 5], "to": [9, 5, 7] },
+            { "from": [9, 0, 8], "to": [11, 4, 10] }
+          ]
+        },
+        "4": {
+          "boxes": [
+            { "from": [5, 0, 5], "to": [7, 6, 7] },
+            { "from": [9, 0, 5], "to": [11, 5, 7] },
+            { "from": [5, 0, 9], "to": [7, 4, 11] },
+            { "from": [9, 0, 9], "to": [11, 3, 11] }
+          ]
+        }
+      }
+    },
+    "amethyst_cluster": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [3, 0, 3], "to": [13, 7, 13] }]
+      },
+      "rotatable": true,
+      "connectable": null,
+      "variants": {
+        "small": {
+          "boxes": [{ "from": [4, 0, 4], "to": [12, 3, 12] }]
+        },
+        "medium": {
+          "boxes": [{ "from": [3, 0, 3], "to": [13, 4, 13] }]
+        },
+        "large": {
+          "boxes": [{ "from": [3, 0, 3], "to": [13, 5, 13] }]
+        },
+        "cluster": {
+          "boxes": [{ "from": [3, 0, 3], "to": [13, 7, 13] }]
+        }
+      }
+    },
+    "pointed_dripstone": {
+      "geometry": {
+        "type": "multi_box",
+        "boxes": [
+          { "from": [5, 0, 5], "to": [11, 11, 11] }
+        ]
+      },
+      "rotatable": true,
+      "connectable": "vertical",
+      "variants": {
+        "tip_up": {
+          "boxes": [
+            { "from": [6, 0, 6], "to": [10, 2, 10] },
+            { "from": [7, 2, 7], "to": [9, 5, 9] },
+            { "from": [7.5, 5, 7.5], "to": [8.5, 11, 8.5] }
+          ]
+        },
+        "tip_down": {
+          "boxes": [
+            { "from": [6, 9, 6], "to": [10, 11, 10] },
+            { "from": [7, 6, 7], "to": [9, 9, 9] },
+            { "from": [7.5, 0, 7.5], "to": [8.5, 6, 8.5] }
+          ]
+        },
+        "frustum_up": {
+          "boxes": [{ "from": [4, 0, 4], "to": [12, 11, 12] }]
+        },
+        "frustum_down": {
+          "boxes": [{ "from": [4, 0, 4], "to": [12, 11, 12] }]
+        },
+        "middle": {
+          "boxes": [{ "from": [5, 0, 5], "to": [11, 16, 11] }]
+        },
+        "base": {
+          "boxes": [{ "from": [4, 0, 4], "to": [12, 16, 12] }]
+        }
+      }
+    },
+    "sculk_sensor": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [0, 0, 0], "to": [16, 8, 16] }]
+      },
+      "rotatable": false,
+      "connectable": null
+    },
+    "decorated_pot": {
+      "geometry": {
+        "type": "multi_box",
+        "boxes": [
+          { "from": [1, 0, 1], "to": [15, 16, 15] }
+        ]
+      },
+      "rotatable": true,
+      "connectable": null
+    },
+    "head": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [4, 0, 4], "to": [12, 8, 12] }]
+      },
+      "rotatable": true,
+      "connectable": null,
+      "variants": {
+        "floor": {
+          "boxes": [{ "from": [4, 0, 4], "to": [12, 8, 12] }]
+        },
+        "wall": {
+          "boxes": [{ "from": [4, 4, 8], "to": [12, 12, 16] }]
+        }
+      }
+    },
+    "flower_pot": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [5, 0, 5], "to": [11, 6, 11] }]
+      },
+      "rotatable": false,
+      "connectable": null
+    },
+    "rail": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [0, 0, 0], "to": [16, 2, 16] }]
+      },
+      "rotatable": true,
+      "connectable": null,
+      "variants": {
+        "flat": {
+          "boxes": [{ "from": [0, 0, 0], "to": [16, 2, 16] }]
+        },
+        "ascending_north": {
+          "boxes": [{ "from": [0, 0, 0], "to": [16, 8, 16] }]
+        },
+        "ascending_south": {
+          "boxes": [{ "from": [0, 0, 0], "to": [16, 8, 16] }]
+        },
+        "ascending_east": {
+          "boxes": [{ "from": [0, 0, 0], "to": [16, 8, 16] }]
+        },
+        "ascending_west": {
+          "boxes": [{ "from": [0, 0, 0], "to": [16, 8, 16] }]
+        }
+      }
+    },
+    "ladder": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [0, 0, 13], "to": [16, 16, 16] }]
+      },
+      "rotatable": true,
+      "connectable": null,
+      "variants": {
+        "north": {
+          "boxes": [{ "from": [0, 0, 13], "to": [16, 16, 16] }]
+        },
+        "south": {
+          "boxes": [{ "from": [0, 0, 0], "to": [16, 16, 3] }]
+        },
+        "east": {
+          "boxes": [{ "from": [0, 0, 0], "to": [3, 16, 16] }]
+        },
+        "west": {
+          "boxes": [{ "from": [13, 0, 0], "to": [16, 16, 16] }]
+        }
+      }
+    },
+    "snow_layer": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [0, 0, 0], "to": [16, 2, 16] }]
+      },
+      "rotatable": false,
+      "connectable": null,
+      "variants": {
+        "1": { "boxes": [{ "from": [0, 0, 0], "to": [16, 2, 16] }] },
+        "2": { "boxes": [{ "from": [0, 0, 0], "to": [16, 4, 16] }] },
+        "3": { "boxes": [{ "from": [0, 0, 0], "to": [16, 6, 16] }] },
+        "4": { "boxes": [{ "from": [0, 0, 0], "to": [16, 8, 16] }] },
+        "5": { "boxes": [{ "from": [0, 0, 0], "to": [16, 10, 16] }] },
+        "6": { "boxes": [{ "from": [0, 0, 0], "to": [16, 12, 16] }] },
+        "7": { "boxes": [{ "from": [0, 0, 0], "to": [16, 14, 16] }] },
+        "8": { "boxes": [{ "from": [0, 0, 0], "to": [16, 16, 16] }] }
+      }
+    },
+    "farmland": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [0, 0, 0], "to": [16, 15, 16] }]
+      },
+      "rotatable": false,
+      "connectable": null
+    },
+    "path": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [0, 0, 0], "to": [16, 15, 16] }]
+      },
+      "rotatable": false,
+      "connectable": null
+    },
+    "cake": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [1, 0, 1], "to": [15, 8, 15] }]
+      },
+      "rotatable": false,
+      "connectable": null,
+      "variants": {
+        "0": { "boxes": [{ "from": [1, 0, 1], "to": [15, 8, 15] }] },
+        "1": { "boxes": [{ "from": [3, 0, 1], "to": [15, 8, 15] }] },
+        "2": { "boxes": [{ "from": [5, 0, 1], "to": [15, 8, 15] }] },
+        "3": { "boxes": [{ "from": [7, 0, 1], "to": [15, 8, 15] }] },
+        "4": { "boxes": [{ "from": [9, 0, 1], "to": [15, 8, 15] }] },
+        "5": { "boxes": [{ "from": [11, 0, 1], "to": [15, 8, 15] }] },
+        "6": { "boxes": [{ "from": [13, 0, 1], "to": [15, 8, 15] }] }
+      }
+    },
+    "end_rod": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [6, 0, 6], "to": [10, 16, 10] }]
+      },
+      "rotatable": true,
+      "connectable": null,
+      "variants": {
+        "up": { "boxes": [{ "from": [6, 0, 6], "to": [10, 16, 10] }] },
+        "down": { "boxes": [{ "from": [6, 0, 6], "to": [10, 16, 10] }] },
+        "north": { "boxes": [{ "from": [6, 6, 0], "to": [10, 10, 16] }] },
+        "south": { "boxes": [{ "from": [6, 6, 0], "to": [10, 10, 16] }] },
+        "east": { "boxes": [{ "from": [0, 6, 6], "to": [16, 10, 10] }] },
+        "west": { "boxes": [{ "from": [0, 6, 6], "to": [16, 10, 10] }] }
+      }
+    },
+    "lightning_rod": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [6, 0, 6], "to": [10, 16, 10] }]
+      },
+      "rotatable": true,
+      "connectable": null,
+      "variants": {
+        "up": { "boxes": [{ "from": [6, 0, 6], "to": [10, 16, 10] }] },
+        "down": { "boxes": [{ "from": [6, 0, 6], "to": [10, 16, 10] }] },
+        "north": { "boxes": [{ "from": [6, 6, 0], "to": [10, 10, 16] }] },
+        "south": { "boxes": [{ "from": [6, 6, 0], "to": [10, 10, 16] }] },
+        "east": { "boxes": [{ "from": [0, 6, 6], "to": [16, 10, 10] }] },
+        "west": { "boxes": [{ "from": [0, 6, 6], "to": [16, 10, 10] }] }
+      }
+    },
+    "piston": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [0, 0, 0], "to": [16, 16, 16] }]
+      },
+      "rotatable": true,
+      "connectable": null,
+      "variants": {
+        "retracted": {
+          "boxes": [{ "from": [0, 0, 0], "to": [16, 16, 16] }]
+        },
+        "extended": {
+          "boxes": [{ "from": [0, 0, 0], "to": [16, 12, 16] }]
+        }
+      }
+    },
+    "piston_head": {
+      "geometry": {
+        "type": "multi_box",
+        "boxes": [
+          { "from": [0, 12, 0], "to": [16, 16, 16] },
+          { "from": [6, 0, 6], "to": [10, 12, 10] }
+        ]
+      },
+      "rotatable": true,
+      "connectable": null
+    },
+    "daylight_detector": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [0, 0, 0], "to": [16, 6, 16] }]
+      },
+      "rotatable": false,
+      "connectable": null
+    },
+    "repeater": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [0, 0, 0], "to": [16, 2, 16] }]
+      },
+      "rotatable": true,
+      "connectable": null
+    },
+    "comparator": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [0, 0, 0], "to": [16, 2, 16] }]
+      },
+      "rotatable": true,
+      "connectable": null
+    },
+    "tripwire_hook": {
+      "geometry": {
+        "type": "multi_box",
+        "boxes": [
+          { "from": [6, 1, 14], "to": [10, 9, 16] },
+          { "from": [7, 2, 8], "to": [9, 4, 14] }
+        ]
+      },
+      "rotatable": true,
+      "connectable": null
+    },
+    "tripwire": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [0, 1, 0], "to": [16, 2.5, 16] }]
+      },
+      "rotatable": false,
+      "connectable": "horizontal"
+    },
+    "redstone_wire": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [0, 0, 0], "to": [16, 1, 16] }]
+      },
+      "rotatable": false,
+      "connectable": "horizontal"
+    },
+    "cocoa": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [4, 3, 1], "to": [12, 12, 9] }]
+      },
+      "rotatable": true,
+      "connectable": null,
+      "variants": {
+        "age_0": { "boxes": [{ "from": [6, 7, 1], "to": [10, 12, 5] }] },
+        "age_1": { "boxes": [{ "from": [5, 5, 1], "to": [11, 12, 7] }] },
+        "age_2": { "boxes": [{ "from": [4, 3, 1], "to": [12, 12, 9] }] }
+      }
+    },
+    "turtle_egg": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [3, 0, 3], "to": [12, 7, 12] }]
+      },
+      "rotatable": false,
+      "connectable": null,
+      "variants": {
+        "1": { "boxes": [{ "from": [5, 0, 5], "to": [11, 7, 11] }] },
+        "2": { "boxes": [{ "from": [3, 0, 5], "to": [12, 7, 12] }] },
+        "3": { "boxes": [{ "from": [3, 0, 3], "to": [12, 7, 12] }] },
+        "4": { "boxes": [{ "from": [3, 0, 3], "to": [13, 7, 13] }] }
+      }
+    },
+    "sea_pickle": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [6, 0, 6], "to": [10, 6, 10] }]
+      },
+      "rotatable": false,
+      "connectable": null,
+      "variants": {
+        "1": { "boxes": [{ "from": [6, 0, 6], "to": [10, 6, 10] }] },
+        "2": { "boxes": [{ "from": [3, 0, 3], "to": [13, 6, 13] }] },
+        "3": { "boxes": [{ "from": [2, 0, 2], "to": [14, 6, 14] }] },
+        "4": { "boxes": [{ "from": [2, 0, 2], "to": [14, 6, 14] }] }
+      }
+    },
+    "conduit": {
+      "geometry": {
+        "type": "box",
+        "boxes": [{ "from": [5, 5, 5], "to": [11, 11, 11] }]
+      },
+      "rotatable": false,
+      "connectable": null
+    },
+    "scaffolding": {
+      "geometry": {
+        "type": "multi_box",
+        "boxes": [
+          { "from": [0, 14, 0], "to": [16, 16, 16] },
+          { "from": [0, 0, 0], "to": [2, 16, 2] },
+          { "from": [14, 0, 0], "to": [16, 16, 2] },
+          { "from": [0, 0, 14], "to": [2, 16, 16] },
+          { "from": [14, 0, 14], "to": [16, 16, 16] }
+        ]
+      },
+      "rotatable": false,
+      "connectable": null
+    },
+    "custom": {
+      "geometry": {
+        "type": "custom",
+        "customGenerator": "getCustomBlockGeometry"
+      },
+      "rotatable": false,
+      "connectable": null
+    }
+  },
+  "blockMapping": {
+    "minecraft:stone": "full",
+    "minecraft:granite": "full",
+    "minecraft:polished_granite": "full",
+    "minecraft:diorite": "full",
+    "minecraft:polished_diorite": "full",
+    "minecraft:andesite": "full",
+    "minecraft:polished_andesite": "full",
+    "minecraft:deepslate": "full",
+    "minecraft:cobbled_deepslate": "full",
+    "minecraft:polished_deepslate": "full",
+    "minecraft:calcite": "full",
+    "minecraft:tuff": "full",
+    "minecraft:tuff_bricks": "full",
+    "minecraft:polished_tuff": "full",
+    "minecraft:chiseled_tuff": "full",
+    "minecraft:chiseled_tuff_bricks": "full",
+    "minecraft:dripstone_block": "full",
+    "minecraft:grass_block": "full",
+    "minecraft:dirt": "full",
+    "minecraft:coarse_dirt": "full",
+    "minecraft:podzol": "full",
+    "minecraft:rooted_dirt": "full",
+    "minecraft:mud": "full",
+    "minecraft:packed_mud": "full",
+    "minecraft:mud_bricks": "full",
+    "minecraft:crimson_nylium": "full",
+    "minecraft:warped_nylium": "full",
+    "minecraft:cobblestone": "full",
+    "minecraft:oak_planks": "full",
+    "minecraft:spruce_planks": "full",
+    "minecraft:birch_planks": "full",
+    "minecraft:jungle_planks": "full",
+    "minecraft:acacia_planks": "full",
+    "minecraft:cherry_planks": "full",
+    "minecraft:dark_oak_planks": "full",
+    "minecraft:mangrove_planks": "full",
+    "minecraft:bamboo_planks": "full",
+    "minecraft:bamboo_mosaic": "full",
+    "minecraft:crimson_planks": "full",
+    "minecraft:warped_planks": "full",
+    "minecraft:bedrock": "full",
+    "minecraft:sand": "full",
+    "minecraft:suspicious_sand": "full",
+    "minecraft:suspicious_gravel": "full",
+    "minecraft:red_sand": "full",
+    "minecraft:gravel": "full",
+    "minecraft:coal_ore": "full",
+    "minecraft:deepslate_coal_ore": "full",
+    "minecraft:iron_ore": "full",
+    "minecraft:deepslate_iron_ore": "full",
+    "minecraft:copper_ore": "full",
+    "minecraft:deepslate_copper_ore": "full",
+    "minecraft:gold_ore": "full",
+    "minecraft:deepslate_gold_ore": "full",
+    "minecraft:redstone_ore": "full",
+    "minecraft:deepslate_redstone_ore": "full",
+    "minecraft:emerald_ore": "full",
+    "minecraft:deepslate_emerald_ore": "full",
+    "minecraft:lapis_ore": "full",
+    "minecraft:deepslate_lapis_ore": "full",
+    "minecraft:diamond_ore": "full",
+    "minecraft:deepslate_diamond_ore": "full",
+    "minecraft:nether_gold_ore": "full",
+    "minecraft:nether_quartz_ore": "full",
+    "minecraft:ancient_debris": "full",
+    "minecraft:raw_iron_block": "full",
+    "minecraft:raw_copper_block": "full",
+    "minecraft:raw_gold_block": "full",
+    "minecraft:oak_log": "full",
+    "minecraft:spruce_log": "full",
+    "minecraft:birch_log": "full",
+    "minecraft:jungle_log": "full",
+    "minecraft:acacia_log": "full",
+    "minecraft:cherry_log": "full",
+    "minecraft:dark_oak_log": "full",
+    "minecraft:mangrove_log": "full",
+    "minecraft:bamboo_block": "full",
+    "minecraft:crimson_stem": "full",
+    "minecraft:warped_stem": "full",
+    "minecraft:stripped_oak_log": "full",
+    "minecraft:stripped_spruce_log": "full",
+    "minecraft:stripped_birch_log": "full",
+    "minecraft:stripped_jungle_log": "full",
+    "minecraft:stripped_acacia_log": "full",
+    "minecraft:stripped_cherry_log": "full",
+    "minecraft:stripped_dark_oak_log": "full",
+    "minecraft:stripped_mangrove_log": "full",
+    "minecraft:stripped_bamboo_block": "full",
+    "minecraft:stripped_crimson_stem": "full",
+    "minecraft:stripped_warped_stem": "full",
+    "minecraft:oak_wood": "full",
+    "minecraft:spruce_wood": "full",
+    "minecraft:birch_wood": "full",
+    "minecraft:jungle_wood": "full",
+    "minecraft:acacia_wood": "full",
+    "minecraft:cherry_wood": "full",
+    "minecraft:dark_oak_wood": "full",
+    "minecraft:mangrove_wood": "full",
+    "minecraft:crimson_hyphae": "full",
+    "minecraft:warped_hyphae": "full",
+    "minecraft:stripped_oak_wood": "full",
+    "minecraft:stripped_spruce_wood": "full",
+    "minecraft:stripped_birch_wood": "full",
+    "minecraft:stripped_jungle_wood": "full",
+    "minecraft:stripped_acacia_wood": "full",
+    "minecraft:stripped_cherry_wood": "full",
+    "minecraft:stripped_dark_oak_wood": "full",
+    "minecraft:stripped_mangrove_wood": "full",
+    "minecraft:stripped_crimson_hyphae": "full",
+    "minecraft:stripped_warped_hyphae": "full",
+    "minecraft:sponge": "full",
+    "minecraft:wet_sponge": "full",
+    "minecraft:glass": "full",
+    "minecraft:tinted_glass": "full",
+    "minecraft:lapis_block": "full",
+    "minecraft:sandstone": "full",
+    "minecraft:chiseled_sandstone": "full",
+    "minecraft:cut_sandstone": "full",
+    "minecraft:red_sandstone": "full",
+    "minecraft:chiseled_red_sandstone": "full",
+    "minecraft:cut_red_sandstone": "full",
+    "minecraft:white_wool": "full",
+    "minecraft:orange_wool": "full",
+    "minecraft:magenta_wool": "full",
+    "minecraft:light_blue_wool": "full",
+    "minecraft:yellow_wool": "full",
+    "minecraft:lime_wool": "full",
+    "minecraft:pink_wool": "full",
+    "minecraft:gray_wool": "full",
+    "minecraft:light_gray_wool": "full",
+    "minecraft:cyan_wool": "full",
+    "minecraft:purple_wool": "full",
+    "minecraft:blue_wool": "full",
+    "minecraft:brown_wool": "full",
+    "minecraft:green_wool": "full",
+    "minecraft:red_wool": "full",
+    "minecraft:black_wool": "full",
+    "minecraft:gold_block": "full",
+    "minecraft:iron_block": "full",
+    "minecraft:copper_block": "full",
+    "minecraft:exposed_copper": "full",
+    "minecraft:weathered_copper": "full",
+    "minecraft:oxidized_copper": "full",
+    "minecraft:waxed_copper_block": "full",
+    "minecraft:waxed_exposed_copper": "full",
+    "minecraft:waxed_weathered_copper": "full",
+    "minecraft:waxed_oxidized_copper": "full",
+    "minecraft:cut_copper": "full",
+    "minecraft:exposed_cut_copper": "full",
+    "minecraft:weathered_cut_copper": "full",
+    "minecraft:oxidized_cut_copper": "full",
+    "minecraft:waxed_cut_copper": "full",
+    "minecraft:waxed_exposed_cut_copper": "full",
+    "minecraft:waxed_weathered_cut_copper": "full",
+    "minecraft:waxed_oxidized_cut_copper": "full",
+    "minecraft:chiseled_copper": "full",
+    "minecraft:exposed_chiseled_copper": "full",
+    "minecraft:weathered_chiseled_copper": "full",
+    "minecraft:oxidized_chiseled_copper": "full",
+    "minecraft:waxed_chiseled_copper": "full",
+    "minecraft:waxed_exposed_chiseled_copper": "full",
+    "minecraft:waxed_weathered_chiseled_copper": "full",
+    "minecraft:waxed_oxidized_chiseled_copper": "full",
+    "minecraft:copper_grate": "full",
+    "minecraft:exposed_copper_grate": "full",
+    "minecraft:weathered_copper_grate": "full",
+    "minecraft:oxidized_copper_grate": "full",
+    "minecraft:waxed_copper_grate": "full",
+    "minecraft:waxed_exposed_copper_grate": "full",
+    "minecraft:waxed_weathered_copper_grate": "full",
+    "minecraft:waxed_oxidized_copper_grate": "full",
+    "minecraft:copper_bulb": "full",
+    "minecraft:exposed_copper_bulb": "full",
+    "minecraft:weathered_copper_bulb": "full",
+    "minecraft:oxidized_copper_bulb": "full",
+    "minecraft:waxed_copper_bulb": "full",
+    "minecraft:waxed_exposed_copper_bulb": "full",
+    "minecraft:waxed_weathered_copper_bulb": "full",
+    "minecraft:waxed_oxidized_copper_bulb": "full",
+    "minecraft:bricks": "full",
+    "minecraft:bookshelf": "full",
+    "minecraft:chiseled_bookshelf": "full",
+    "minecraft:mossy_cobblestone": "full",
+    "minecraft:obsidian": "full",
+    "minecraft:crying_obsidian": "full",
+    "minecraft:purpur_block": "full",
+    "minecraft:purpur_pillar": "full",
+    "minecraft:spawner": "full",
+    "minecraft:trial_spawner": "full",
+    "minecraft:vault": "full",
+    "minecraft:diamond_block": "full",
+    "minecraft:netherite_block": "full",
+    "minecraft:crafting_table": "full",
+    "minecraft:furnace": "full",
+    "minecraft:blast_furnace": "full",
+    "minecraft:smoker": "full",
+    "minecraft:redstone_block": "full",
+    "minecraft:snow_block": "full",
+    "minecraft:clay": "full",
+    "minecraft:jukebox": "full",
+    "minecraft:pumpkin": "full",
+    "minecraft:carved_pumpkin": "full",
+    "minecraft:jack_o_lantern": "full",
+    "minecraft:netherrack": "full",
+    "minecraft:soul_sand": "full",
+    "minecraft:soul_soil": "full",
+    "minecraft:basalt": "full",
+    "minecraft:polished_basalt": "full",
+    "minecraft:smooth_basalt": "full",
+    "minecraft:glowstone": "full",
+    "minecraft:infested_stone": "full",
+    "minecraft:infested_cobblestone": "full",
+    "minecraft:infested_stone_bricks": "full",
+    "minecraft:infested_mossy_stone_bricks": "full",
+    "minecraft:infested_cracked_stone_bricks": "full",
+    "minecraft:infested_chiseled_stone_bricks": "full",
+    "minecraft:infested_deepslate": "full",
+    "minecraft:stone_bricks": "full",
+    "minecraft:mossy_stone_bricks": "full",
+    "minecraft:cracked_stone_bricks": "full",
+    "minecraft:chiseled_stone_bricks": "full",
+    "minecraft:deepslate_bricks": "full",
+    "minecraft:cracked_deepslate_bricks": "full",
+    "minecraft:deepslate_tiles": "full",
+    "minecraft:cracked_deepslate_tiles": "full",
+    "minecraft:chiseled_deepslate": "full",
+    "minecraft:reinforced_deepslate": "full",
+    "minecraft:brown_mushroom_block": "full",
+    "minecraft:red_mushroom_block": "full",
+    "minecraft:mushroom_stem": "full",
+    "minecraft:melon": "full",
+    "minecraft:mycelium": "full",
+    "minecraft:nether_bricks": "full",
+    "minecraft:cracked_nether_bricks": "full",
+    "minecraft:chiseled_nether_bricks": "full",
+    "minecraft:red_nether_bricks": "full",
+    "minecraft:end_stone": "full",
+    "minecraft:end_stone_bricks": "full",
+    "minecraft:emerald_block": "full",
+    "minecraft:quartz_block": "full",
+    "minecraft:chiseled_quartz_block": "full",
+    "minecraft:quartz_pillar": "full",
+    "minecraft:quartz_bricks": "full",
+    "minecraft:smooth_quartz": "full",
+    "minecraft:prismarine": "full",
+    "minecraft:prismarine_bricks": "full",
+    "minecraft:dark_prismarine": "full",
+    "minecraft:sea_lantern": "full",
+    "minecraft:hay_block": "full",
+    "minecraft:white_terracotta": "full",
+    "minecraft:orange_terracotta": "full",
+    "minecraft:magenta_terracotta": "full",
+    "minecraft:light_blue_terracotta": "full",
+    "minecraft:yellow_terracotta": "full",
+    "minecraft:lime_terracotta": "full",
+    "minecraft:pink_terracotta": "full",
+    "minecraft:gray_terracotta": "full",
+    "minecraft:light_gray_terracotta": "full",
+    "minecraft:cyan_terracotta": "full",
+    "minecraft:purple_terracotta": "full",
+    "minecraft:blue_terracotta": "full",
+    "minecraft:brown_terracotta": "full",
+    "minecraft:green_terracotta": "full",
+    "minecraft:red_terracotta": "full",
+    "minecraft:black_terracotta": "full",
+    "minecraft:terracotta": "full",
+    "minecraft:coal_block": "full",
+    "minecraft:packed_ice": "full",
+    "minecraft:blue_ice": "full",
+    "minecraft:white_stained_glass": "full",
+    "minecraft:orange_stained_glass": "full",
+    "minecraft:magenta_stained_glass": "full",
+    "minecraft:light_blue_stained_glass": "full",
+    "minecraft:yellow_stained_glass": "full",
+    "minecraft:lime_stained_glass": "full",
+    "minecraft:pink_stained_glass": "full",
+    "minecraft:gray_stained_glass": "full",
+    "minecraft:light_gray_stained_glass": "full",
+    "minecraft:cyan_stained_glass": "full",
+    "minecraft:purple_stained_glass": "full",
+    "minecraft:blue_stained_glass": "full",
+    "minecraft:brown_stained_glass": "full",
+    "minecraft:green_stained_glass": "full",
+    "minecraft:red_stained_glass": "full",
+    "minecraft:black_stained_glass": "full",
+    "minecraft:white_concrete": "full",
+    "minecraft:orange_concrete": "full",
+    "minecraft:magenta_concrete": "full",
+    "minecraft:light_blue_concrete": "full",
+    "minecraft:yellow_concrete": "full",
+    "minecraft:lime_concrete": "full",
+    "minecraft:pink_concrete": "full",
+    "minecraft:gray_concrete": "full",
+    "minecraft:light_gray_concrete": "full",
+    "minecraft:cyan_concrete": "full",
+    "minecraft:purple_concrete": "full",
+    "minecraft:blue_concrete": "full",
+    "minecraft:brown_concrete": "full",
+    "minecraft:green_concrete": "full",
+    "minecraft:red_concrete": "full",
+    "minecraft:black_concrete": "full",
+    "minecraft:white_concrete_powder": "full",
+    "minecraft:orange_concrete_powder": "full",
+    "minecraft:magenta_concrete_powder": "full",
+    "minecraft:light_blue_concrete_powder": "full",
+    "minecraft:yellow_concrete_powder": "full",
+    "minecraft:lime_concrete_powder": "full",
+    "minecraft:pink_concrete_powder": "full",
+    "minecraft:gray_concrete_powder": "full",
+    "minecraft:light_gray_concrete_powder": "full",
+    "minecraft:cyan_concrete_powder": "full",
+    "minecraft:purple_concrete_powder": "full",
+    "minecraft:blue_concrete_powder": "full",
+    "minecraft:brown_concrete_powder": "full",
+    "minecraft:green_concrete_powder": "full",
+    "minecraft:red_concrete_powder": "full",
+    "minecraft:black_concrete_powder": "full",
+    "minecraft:white_glazed_terracotta": "full",
+    "minecraft:orange_glazed_terracotta": "full",
+    "minecraft:magenta_glazed_terracotta": "full",
+    "minecraft:light_blue_glazed_terracotta": "full",
+    "minecraft:yellow_glazed_terracotta": "full",
+    "minecraft:lime_glazed_terracotta": "full",
+    "minecraft:pink_glazed_terracotta": "full",
+    "minecraft:gray_glazed_terracotta": "full",
+    "minecraft:light_gray_glazed_terracotta": "full",
+    "minecraft:cyan_glazed_terracotta": "full",
+    "minecraft:purple_glazed_terracotta": "full",
+    "minecraft:blue_glazed_terracotta": "full",
+    "minecraft:brown_glazed_terracotta": "full",
+    "minecraft:green_glazed_terracotta": "full",
+    "minecraft:red_glazed_terracotta": "full",
+    "minecraft:black_glazed_terracotta": "full",
+    "minecraft:slime_block": "full",
+    "minecraft:honey_block": "full",
+    "minecraft:honeycomb_block": "full",
+    "minecraft:dried_kelp_block": "full",
+    "minecraft:target": "full",
+    "minecraft:shroomlight": "full",
+    "minecraft:warped_wart_block": "full",
+    "minecraft:nether_wart_block": "full",
+    "minecraft:lodestone": "full",
+    "minecraft:blackstone": "full",
+    "minecraft:polished_blackstone": "full",
+    "minecraft:polished_blackstone_bricks": "full",
+    "minecraft:cracked_polished_blackstone_bricks": "full",
+    "minecraft:chiseled_polished_blackstone": "full",
+    "minecraft:gilded_blackstone": "full",
+    "minecraft:amethyst_block": "full",
+    "minecraft:budding_amethyst": "full",
+    "minecraft:smooth_stone": "full",
+    "minecraft:smooth_sandstone": "full",
+    "minecraft:smooth_red_sandstone": "full",
+    "minecraft:ice": "full",
+    "minecraft:frosted_ice": "full",
+    "minecraft:magma_block": "full",
+    "minecraft:bone_block": "full",
+    "minecraft:respawn_anchor": "full",
+    "minecraft:ochre_froglight": "full",
+    "minecraft:verdant_froglight": "full",
+    "minecraft:pearlescent_froglight": "full",
+    "minecraft:sculk": "full",
+    "minecraft:sculk_catalyst": "full",
+    "minecraft:sculk_shrieker": "sculk_sensor",
+    "minecraft:moss_block": "full",
+    "minecraft:mangrove_roots": "full",
+    "minecraft:muddy_mangrove_roots": "full",
+    "minecraft:oak_leaves": "full",
+    "minecraft:spruce_leaves": "full",
+    "minecraft:birch_leaves": "full",
+    "minecraft:jungle_leaves": "full",
+    "minecraft:acacia_leaves": "full",
+    "minecraft:cherry_leaves": "full",
+    "minecraft:dark_oak_leaves": "full",
+    "minecraft:mangrove_leaves": "full",
+    "minecraft:azalea_leaves": "full",
+    "minecraft:flowering_azalea_leaves": "full",
+    "minecraft:dispenser": "full",
+    "minecraft:dropper": "full",
+    "minecraft:observer": "full",
+    "minecraft:note_block": "full",
+    "minecraft:tnt": "full",
+    "minecraft:redstone_lamp": "full",
+    "minecraft:barrier": "full",
+    "minecraft:light": "full",
+    "minecraft:structure_void": "full",
+    "minecraft:structure_block": "full",
+    "minecraft:jigsaw": "full",
+    "minecraft:command_block": "full",
+    "minecraft:chain_command_block": "full",
+    "minecraft:repeating_command_block": "full",
+    "minecraft:shulker_box": "full",
+    "minecraft:white_shulker_box": "full",
+    "minecraft:orange_shulker_box": "full",
+    "minecraft:magenta_shulker_box": "full",
+    "minecraft:light_blue_shulker_box": "full",
+    "minecraft:yellow_shulker_box": "full",
+    "minecraft:lime_shulker_box": "full",
+    "minecraft:pink_shulker_box": "full",
+    "minecraft:gray_shulker_box": "full",
+    "minecraft:light_gray_shulker_box": "full",
+    "minecraft:cyan_shulker_box": "full",
+    "minecraft:purple_shulker_box": "full",
+    "minecraft:blue_shulker_box": "full",
+    "minecraft:brown_shulker_box": "full",
+    "minecraft:green_shulker_box": "full",
+    "minecraft:red_shulker_box": "full",
+    "minecraft:black_shulker_box": "full",
+    "minecraft:barrel": "full",
+    "minecraft:loom": "full",
+    "minecraft:cartography_table": "full",
+    "minecraft:fletching_table": "full",
+    "minecraft:smithing_table": "full",
+    "minecraft:cactus": "full",
+    "minecraft:chorus_flower": "full",
+    "minecraft:sniffer_egg": "full",
+    "minecraft:beacon": "full",
+    "minecraft:end_gateway": "full",
+    "minecraft:end_portal": "full",
+    "minecraft:powder_snow": "full",
+    "minecraft:crafter": "full",
+
+    "minecraft:oak_stairs": "stairs",
+    "minecraft:spruce_stairs": "stairs",
+    "minecraft:birch_stairs": "stairs",
+    "minecraft:jungle_stairs": "stairs",
+    "minecraft:acacia_stairs": "stairs",
+    "minecraft:cherry_stairs": "stairs",
+    "minecraft:dark_oak_stairs": "stairs",
+    "minecraft:mangrove_stairs": "stairs",
+    "minecraft:bamboo_stairs": "stairs",
+    "minecraft:bamboo_mosaic_stairs": "stairs",
+    "minecraft:crimson_stairs": "stairs",
+    "minecraft:warped_stairs": "stairs",
+    "minecraft:stone_stairs": "stairs",
+    "minecraft:cobblestone_stairs": "stairs",
+    "minecraft:mossy_cobblestone_stairs": "stairs",
+    "minecraft:stone_brick_stairs": "stairs",
+    "minecraft:mossy_stone_brick_stairs": "stairs",
+    "minecraft:granite_stairs": "stairs",
+    "minecraft:polished_granite_stairs": "stairs",
+    "minecraft:diorite_stairs": "stairs",
+    "minecraft:polished_diorite_stairs": "stairs",
+    "minecraft:andesite_stairs": "stairs",
+    "minecraft:polished_andesite_stairs": "stairs",
+    "minecraft:deepslate_brick_stairs": "stairs",
+    "minecraft:deepslate_tile_stairs": "stairs",
+    "minecraft:polished_deepslate_stairs": "stairs",
+    "minecraft:cobbled_deepslate_stairs": "stairs",
+    "minecraft:brick_stairs": "stairs",
+    "minecraft:sandstone_stairs": "stairs",
+    "minecraft:smooth_sandstone_stairs": "stairs",
+    "minecraft:red_sandstone_stairs": "stairs",
+    "minecraft:smooth_red_sandstone_stairs": "stairs",
+    "minecraft:prismarine_stairs": "stairs",
+    "minecraft:prismarine_brick_stairs": "stairs",
+    "minecraft:dark_prismarine_stairs": "stairs",
+    "minecraft:nether_brick_stairs": "stairs",
+    "minecraft:red_nether_brick_stairs": "stairs",
+    "minecraft:quartz_stairs": "stairs",
+    "minecraft:smooth_quartz_stairs": "stairs",
+    "minecraft:purpur_stairs": "stairs",
+    "minecraft:end_stone_brick_stairs": "stairs",
+    "minecraft:blackstone_stairs": "stairs",
+    "minecraft:polished_blackstone_stairs": "stairs",
+    "minecraft:polished_blackstone_brick_stairs": "stairs",
+    "minecraft:cut_copper_stairs": "stairs",
+    "minecraft:exposed_cut_copper_stairs": "stairs",
+    "minecraft:weathered_cut_copper_stairs": "stairs",
+    "minecraft:oxidized_cut_copper_stairs": "stairs",
+    "minecraft:waxed_cut_copper_stairs": "stairs",
+    "minecraft:waxed_exposed_cut_copper_stairs": "stairs",
+    "minecraft:waxed_weathered_cut_copper_stairs": "stairs",
+    "minecraft:waxed_oxidized_cut_copper_stairs": "stairs",
+    "minecraft:mud_brick_stairs": "stairs",
+    "minecraft:tuff_stairs": "stairs",
+    "minecraft:polished_tuff_stairs": "stairs",
+    "minecraft:tuff_brick_stairs": "stairs",
+
+    "minecraft:oak_slab": "slab",
+    "minecraft:spruce_slab": "slab",
+    "minecraft:birch_slab": "slab",
+    "minecraft:jungle_slab": "slab",
+    "minecraft:acacia_slab": "slab",
+    "minecraft:cherry_slab": "slab",
+    "minecraft:dark_oak_slab": "slab",
+    "minecraft:mangrove_slab": "slab",
+    "minecraft:bamboo_slab": "slab",
+    "minecraft:bamboo_mosaic_slab": "slab",
+    "minecraft:crimson_slab": "slab",
+    "minecraft:warped_slab": "slab",
+    "minecraft:stone_slab": "slab",
+    "minecraft:smooth_stone_slab": "slab",
+    "minecraft:cobblestone_slab": "slab",
+    "minecraft:mossy_cobblestone_slab": "slab",
+    "minecraft:stone_brick_slab": "slab",
+    "minecraft:mossy_stone_brick_slab": "slab",
+    "minecraft:granite_slab": "slab",
+    "minecraft:polished_granite_slab": "slab",
+    "minecraft:diorite_slab": "slab",
+    "minecraft:polished_diorite_slab": "slab",
+    "minecraft:andesite_slab": "slab",
+    "minecraft:polished_andesite_slab": "slab",
+    "minecraft:deepslate_brick_slab": "slab",
+    "minecraft:deepslate_tile_slab": "slab",
+    "minecraft:polished_deepslate_slab": "slab",
+    "minecraft:cobbled_deepslate_slab": "slab",
+    "minecraft:brick_slab": "slab",
+    "minecraft:sandstone_slab": "slab",
+    "minecraft:smooth_sandstone_slab": "slab",
+    "minecraft:cut_sandstone_slab": "slab",
+    "minecraft:red_sandstone_slab": "slab",
+    "minecraft:smooth_red_sandstone_slab": "slab",
+    "minecraft:cut_red_sandstone_slab": "slab",
+    "minecraft:prismarine_slab": "slab",
+    "minecraft:prismarine_brick_slab": "slab",
+    "minecraft:dark_prismarine_slab": "slab",
+    "minecraft:nether_brick_slab": "slab",
+    "minecraft:red_nether_brick_slab": "slab",
+    "minecraft:quartz_slab": "slab",
+    "minecraft:smooth_quartz_slab": "slab",
+    "minecraft:purpur_slab": "slab",
+    "minecraft:end_stone_brick_slab": "slab",
+    "minecraft:blackstone_slab": "slab",
+    "minecraft:polished_blackstone_slab": "slab",
+    "minecraft:polished_blackstone_brick_slab": "slab",
+    "minecraft:cut_copper_slab": "slab",
+    "minecraft:exposed_cut_copper_slab": "slab",
+    "minecraft:weathered_cut_copper_slab": "slab",
+    "minecraft:oxidized_cut_copper_slab": "slab",
+    "minecraft:waxed_cut_copper_slab": "slab",
+    "minecraft:waxed_exposed_cut_copper_slab": "slab",
+    "minecraft:waxed_weathered_cut_copper_slab": "slab",
+    "minecraft:waxed_oxidized_cut_copper_slab": "slab",
+    "minecraft:mud_brick_slab": "slab",
+    "minecraft:tuff_slab": "slab",
+    "minecraft:polished_tuff_slab": "slab",
+    "minecraft:tuff_brick_slab": "slab",
+    "minecraft:petrified_oak_slab": "slab",
+
+    "minecraft:oak_fence": "fence",
+    "minecraft:spruce_fence": "fence",
+    "minecraft:birch_fence": "fence",
+    "minecraft:jungle_fence": "fence",
+    "minecraft:acacia_fence": "fence",
+    "minecraft:cherry_fence": "fence",
+    "minecraft:dark_oak_fence": "fence",
+    "minecraft:mangrove_fence": "fence",
+    "minecraft:bamboo_fence": "fence",
+    "minecraft:crimson_fence": "fence",
+    "minecraft:warped_fence": "fence",
+    "minecraft:nether_brick_fence": "fence",
+
+    "minecraft:oak_fence_gate": "fence_gate",
+    "minecraft:spruce_fence_gate": "fence_gate",
+    "minecraft:birch_fence_gate": "fence_gate",
+    "minecraft:jungle_fence_gate": "fence_gate",
+    "minecraft:acacia_fence_gate": "fence_gate",
+    "minecraft:cherry_fence_gate": "fence_gate",
+    "minecraft:dark_oak_fence_gate": "fence_gate",
+    "minecraft:mangrove_fence_gate": "fence_gate",
+    "minecraft:bamboo_fence_gate": "fence_gate",
+    "minecraft:crimson_fence_gate": "fence_gate",
+    "minecraft:warped_fence_gate": "fence_gate",
+
+    "minecraft:cobblestone_wall": "wall",
+    "minecraft:mossy_cobblestone_wall": "wall",
+    "minecraft:stone_brick_wall": "wall",
+    "minecraft:mossy_stone_brick_wall": "wall",
+    "minecraft:granite_wall": "wall",
+    "minecraft:diorite_wall": "wall",
+    "minecraft:andesite_wall": "wall",
+    "minecraft:deepslate_brick_wall": "wall",
+    "minecraft:deepslate_tile_wall": "wall",
+    "minecraft:polished_deepslate_wall": "wall",
+    "minecraft:cobbled_deepslate_wall": "wall",
+    "minecraft:brick_wall": "wall",
+    "minecraft:sandstone_wall": "wall",
+    "minecraft:red_sandstone_wall": "wall",
+    "minecraft:prismarine_wall": "wall",
+    "minecraft:nether_brick_wall": "wall",
+    "minecraft:red_nether_brick_wall": "wall",
+    "minecraft:end_stone_brick_wall": "wall",
+    "minecraft:blackstone_wall": "wall",
+    "minecraft:polished_blackstone_wall": "wall",
+    "minecraft:polished_blackstone_brick_wall": "wall",
+    "minecraft:mud_brick_wall": "wall",
+    "minecraft:tuff_wall": "wall",
+    "minecraft:polished_tuff_wall": "wall",
+    "minecraft:tuff_brick_wall": "wall",
+
+    "minecraft:oak_door": "door",
+    "minecraft:spruce_door": "door",
+    "minecraft:birch_door": "door",
+    "minecraft:jungle_door": "door",
+    "minecraft:acacia_door": "door",
+    "minecraft:cherry_door": "door",
+    "minecraft:dark_oak_door": "door",
+    "minecraft:mangrove_door": "door",
+    "minecraft:bamboo_door": "door",
+    "minecraft:crimson_door": "door",
+    "minecraft:warped_door": "door",
+    "minecraft:iron_door": "door",
+    "minecraft:copper_door": "door",
+    "minecraft:exposed_copper_door": "door",
+    "minecraft:weathered_copper_door": "door",
+    "minecraft:oxidized_copper_door": "door",
+    "minecraft:waxed_copper_door": "door",
+    "minecraft:waxed_exposed_copper_door": "door",
+    "minecraft:waxed_weathered_copper_door": "door",
+    "minecraft:waxed_oxidized_copper_door": "door",
+
+    "minecraft:oak_trapdoor": "trapdoor",
+    "minecraft:spruce_trapdoor": "trapdoor",
+    "minecraft:birch_trapdoor": "trapdoor",
+    "minecraft:jungle_trapdoor": "trapdoor",
+    "minecraft:acacia_trapdoor": "trapdoor",
+    "minecraft:cherry_trapdoor": "trapdoor",
+    "minecraft:dark_oak_trapdoor": "trapdoor",
+    "minecraft:mangrove_trapdoor": "trapdoor",
+    "minecraft:bamboo_trapdoor": "trapdoor",
+    "minecraft:crimson_trapdoor": "trapdoor",
+    "minecraft:warped_trapdoor": "trapdoor",
+    "minecraft:iron_trapdoor": "trapdoor",
+    "minecraft:copper_trapdoor": "trapdoor",
+    "minecraft:exposed_copper_trapdoor": "trapdoor",
+    "minecraft:weathered_copper_trapdoor": "trapdoor",
+    "minecraft:oxidized_copper_trapdoor": "trapdoor",
+    "minecraft:waxed_copper_trapdoor": "trapdoor",
+    "minecraft:waxed_exposed_copper_trapdoor": "trapdoor",
+    "minecraft:waxed_weathered_copper_trapdoor": "trapdoor",
+    "minecraft:waxed_oxidized_copper_trapdoor": "trapdoor",
+
+    "minecraft:stone_pressure_plate": "pressure_plate",
+    "minecraft:oak_pressure_plate": "pressure_plate",
+    "minecraft:spruce_pressure_plate": "pressure_plate",
+    "minecraft:birch_pressure_plate": "pressure_plate",
+    "minecraft:jungle_pressure_plate": "pressure_plate",
+    "minecraft:acacia_pressure_plate": "pressure_plate",
+    "minecraft:cherry_pressure_plate": "pressure_plate",
+    "minecraft:dark_oak_pressure_plate": "pressure_plate",
+    "minecraft:mangrove_pressure_plate": "pressure_plate",
+    "minecraft:bamboo_pressure_plate": "pressure_plate",
+    "minecraft:crimson_pressure_plate": "pressure_plate",
+    "minecraft:warped_pressure_plate": "pressure_plate",
+    "minecraft:polished_blackstone_pressure_plate": "pressure_plate",
+    "minecraft:light_weighted_pressure_plate": "pressure_plate",
+    "minecraft:heavy_weighted_pressure_plate": "pressure_plate",
+
+    "minecraft:stone_button": "button",
+    "minecraft:oak_button": "button",
+    "minecraft:spruce_button": "button",
+    "minecraft:birch_button": "button",
+    "minecraft:jungle_button": "button",
+    "minecraft:acacia_button": "button",
+    "minecraft:cherry_button": "button",
+    "minecraft:dark_oak_button": "button",
+    "minecraft:mangrove_button": "button",
+    "minecraft:bamboo_button": "button",
+    "minecraft:crimson_button": "button",
+    "minecraft:warped_button": "button",
+    "minecraft:polished_blackstone_button": "button",
+
+    "minecraft:torch": "torch",
+    "minecraft:wall_torch": "torch",
+    "minecraft:soul_torch": "torch",
+    "minecraft:soul_wall_torch": "torch",
+    "minecraft:redstone_torch": "torch",
+    "minecraft:redstone_wall_torch": "torch",
+
+    "minecraft:white_carpet": "carpet",
+    "minecraft:orange_carpet": "carpet",
+    "minecraft:magenta_carpet": "carpet",
+    "minecraft:light_blue_carpet": "carpet",
+    "minecraft:yellow_carpet": "carpet",
+    "minecraft:lime_carpet": "carpet",
+    "minecraft:pink_carpet": "carpet",
+    "minecraft:gray_carpet": "carpet",
+    "minecraft:light_gray_carpet": "carpet",
+    "minecraft:cyan_carpet": "carpet",
+    "minecraft:purple_carpet": "carpet",
+    "minecraft:blue_carpet": "carpet",
+    "minecraft:brown_carpet": "carpet",
+    "minecraft:green_carpet": "carpet",
+    "minecraft:red_carpet": "carpet",
+    "minecraft:black_carpet": "carpet",
+    "minecraft:moss_carpet": "carpet",
+
+    "minecraft:glass_pane": "glass_pane",
+    "minecraft:white_stained_glass_pane": "glass_pane",
+    "minecraft:orange_stained_glass_pane": "glass_pane",
+    "minecraft:magenta_stained_glass_pane": "glass_pane",
+    "minecraft:light_blue_stained_glass_pane": "glass_pane",
+    "minecraft:yellow_stained_glass_pane": "glass_pane",
+    "minecraft:lime_stained_glass_pane": "glass_pane",
+    "minecraft:pink_stained_glass_pane": "glass_pane",
+    "minecraft:gray_stained_glass_pane": "glass_pane",
+    "minecraft:light_gray_stained_glass_pane": "glass_pane",
+    "minecraft:cyan_stained_glass_pane": "glass_pane",
+    "minecraft:purple_stained_glass_pane": "glass_pane",
+    "minecraft:blue_stained_glass_pane": "glass_pane",
+    "minecraft:brown_stained_glass_pane": "glass_pane",
+    "minecraft:green_stained_glass_pane": "glass_pane",
+    "minecraft:red_stained_glass_pane": "glass_pane",
+    "minecraft:black_stained_glass_pane": "glass_pane",
+    "minecraft:iron_bars": "glass_pane",
+    "minecraft:nether_portal": "glass_pane",
+
+    "minecraft:chain": "chain",
+    "minecraft:lantern": "lantern",
+    "minecraft:soul_lantern": "lantern",
+
+    "minecraft:dandelion": "cross",
+    "minecraft:poppy": "cross",
+    "minecraft:blue_orchid": "cross",
+    "minecraft:allium": "cross",
+    "minecraft:azure_bluet": "cross",
+    "minecraft:red_tulip": "cross",
+    "minecraft:orange_tulip": "cross",
+    "minecraft:white_tulip": "cross",
+    "minecraft:pink_tulip": "cross",
+    "minecraft:oxeye_daisy": "cross",
+    "minecraft:cornflower": "cross",
+    "minecraft:lily_of_the_valley": "cross",
+    "minecraft:wither_rose": "cross",
+    "minecraft:torchflower": "cross",
+    "minecraft:pink_petals": "cross",
+    "minecraft:short_grass": "cross",
+    "minecraft:fern": "cross",
+    "minecraft:dead_bush": "cross",
+    "minecraft:seagrass": "cross",
+    "minecraft:tall_seagrass": "cross",
+    "minecraft:crimson_roots": "cross",
+    "minecraft:warped_roots": "cross",
+    "minecraft:nether_sprouts": "cross",
+    "minecraft:brown_mushroom": "cross",
+    "minecraft:red_mushroom": "cross",
+    "minecraft:crimson_fungus": "cross",
+    "minecraft:warped_fungus": "cross",
+    "minecraft:sweet_berry_bush": "cross",
+    "minecraft:glow_lichen": "cross",
+    "minecraft:hanging_roots": "cross",
+    "minecraft:spore_blossom": "cross",
+    "minecraft:azalea": "cross",
+    "minecraft:flowering_azalea": "cross",
+    "minecraft:big_dripleaf": "cross",
+    "minecraft:small_dripleaf": "cross",
+    "minecraft:tall_grass": "cross",
+    "minecraft:large_fern": "cross",
+    "minecraft:sunflower": "cross",
+    "minecraft:lilac": "cross",
+    "minecraft:rose_bush": "cross",
+    "minecraft:peony": "cross",
+    "minecraft:pitcher_plant": "cross",
+    "minecraft:wheat": "cross",
+    "minecraft:carrots": "cross",
+    "minecraft:potatoes": "cross",
+    "minecraft:beetroots": "cross",
+    "minecraft:melon_stem": "cross",
+    "minecraft:pumpkin_stem": "cross",
+    "minecraft:attached_melon_stem": "cross",
+    "minecraft:attached_pumpkin_stem": "cross",
+    "minecraft:nether_wart": "cross",
+    "minecraft:torchflower_crop": "cross",
+    "minecraft:pitcher_crop": "cross",
+    "minecraft:sugar_cane": "cross",
+    "minecraft:kelp": "cross",
+    "minecraft:kelp_plant": "cross",
+    "minecraft:cave_vines": "cross",
+    "minecraft:cave_vines_plant": "cross",
+    "minecraft:twisting_vines": "cross",
+    "minecraft:twisting_vines_plant": "cross",
+    "minecraft:weeping_vines": "cross",
+    "minecraft:weeping_vines_plant": "cross",
+    "minecraft:vine": "cross",
+    "minecraft:oak_sapling": "cross",
+    "minecraft:spruce_sapling": "cross",
+    "minecraft:birch_sapling": "cross",
+    "minecraft:jungle_sapling": "cross",
+    "minecraft:acacia_sapling": "cross",
+    "minecraft:cherry_sapling": "cross",
+    "minecraft:dark_oak_sapling": "cross",
+    "minecraft:mangrove_propagule": "cross",
+    "minecraft:bamboo_sapling": "cross",
+    "minecraft:bamboo": "cross",
+    "minecraft:cobweb": "cross",
+    "minecraft:chorus_plant": "cross",
+    "minecraft:fire": "cross",
+    "minecraft:soul_fire": "cross",
+
+    "minecraft:lever": "lever",
+
+    "minecraft:oak_sign": "sign",
+    "minecraft:spruce_sign": "sign",
+    "minecraft:birch_sign": "sign",
+    "minecraft:jungle_sign": "sign",
+    "minecraft:acacia_sign": "sign",
+    "minecraft:cherry_sign": "sign",
+    "minecraft:dark_oak_sign": "sign",
+    "minecraft:mangrove_sign": "sign",
+    "minecraft:bamboo_sign": "sign",
+    "minecraft:crimson_sign": "sign",
+    "minecraft:warped_sign": "sign",
+    "minecraft:oak_wall_sign": "sign",
+    "minecraft:spruce_wall_sign": "sign",
+    "minecraft:birch_wall_sign": "sign",
+    "minecraft:jungle_wall_sign": "sign",
+    "minecraft:acacia_wall_sign": "sign",
+    "minecraft:cherry_wall_sign": "sign",
+    "minecraft:dark_oak_wall_sign": "sign",
+    "minecraft:mangrove_wall_sign": "sign",
+    "minecraft:bamboo_wall_sign": "sign",
+    "minecraft:crimson_wall_sign": "sign",
+    "minecraft:warped_wall_sign": "sign",
+    "minecraft:oak_hanging_sign": "hanging_sign",
+    "minecraft:spruce_hanging_sign": "hanging_sign",
+    "minecraft:birch_hanging_sign": "hanging_sign",
+    "minecraft:jungle_hanging_sign": "hanging_sign",
+    "minecraft:acacia_hanging_sign": "hanging_sign",
+    "minecraft:cherry_hanging_sign": "hanging_sign",
+    "minecraft:dark_oak_hanging_sign": "hanging_sign",
+    "minecraft:mangrove_hanging_sign": "hanging_sign",
+    "minecraft:bamboo_hanging_sign": "hanging_sign",
+    "minecraft:crimson_hanging_sign": "hanging_sign",
+    "minecraft:warped_hanging_sign": "hanging_sign",
+    "minecraft:oak_wall_hanging_sign": "hanging_sign",
+    "minecraft:spruce_wall_hanging_sign": "hanging_sign",
+    "minecraft:birch_wall_hanging_sign": "hanging_sign",
+    "minecraft:jungle_wall_hanging_sign": "hanging_sign",
+    "minecraft:acacia_wall_hanging_sign": "hanging_sign",
+    "minecraft:cherry_wall_hanging_sign": "hanging_sign",
+    "minecraft:dark_oak_wall_hanging_sign": "hanging_sign",
+    "minecraft:mangrove_wall_hanging_sign": "hanging_sign",
+    "minecraft:bamboo_wall_hanging_sign": "hanging_sign",
+    "minecraft:crimson_wall_hanging_sign": "hanging_sign",
+    "minecraft:warped_wall_hanging_sign": "hanging_sign",
+
+    "minecraft:white_banner": "banner",
+    "minecraft:orange_banner": "banner",
+    "minecraft:magenta_banner": "banner",
+    "minecraft:light_blue_banner": "banner",
+    "minecraft:yellow_banner": "banner",
+    "minecraft:lime_banner": "banner",
+    "minecraft:pink_banner": "banner",
+    "minecraft:gray_banner": "banner",
+    "minecraft:light_gray_banner": "banner",
+    "minecraft:cyan_banner": "banner",
+    "minecraft:purple_banner": "banner",
+    "minecraft:blue_banner": "banner",
+    "minecraft:brown_banner": "banner",
+    "minecraft:green_banner": "banner",
+    "minecraft:red_banner": "banner",
+    "minecraft:black_banner": "banner",
+    "minecraft:white_wall_banner": "banner",
+    "minecraft:orange_wall_banner": "banner",
+    "minecraft:magenta_wall_banner": "banner",
+    "minecraft:light_blue_wall_banner": "banner",
+    "minecraft:yellow_wall_banner": "banner",
+    "minecraft:lime_wall_banner": "banner",
+    "minecraft:pink_wall_banner": "banner",
+    "minecraft:gray_wall_banner": "banner",
+    "minecraft:light_gray_wall_banner": "banner",
+    "minecraft:cyan_wall_banner": "banner",
+    "minecraft:purple_wall_banner": "banner",
+    "minecraft:blue_wall_banner": "banner",
+    "minecraft:brown_wall_banner": "banner",
+    "minecraft:green_wall_banner": "banner",
+    "minecraft:red_wall_banner": "banner",
+    "minecraft:black_wall_banner": "banner",
+    "minecraft:ominous_banner": "banner",
+
+    "minecraft:white_bed": "bed",
+    "minecraft:orange_bed": "bed",
+    "minecraft:magenta_bed": "bed",
+    "minecraft:light_blue_bed": "bed",
+    "minecraft:yellow_bed": "bed",
+    "minecraft:lime_bed": "bed",
+    "minecraft:pink_bed": "bed",
+    "minecraft:gray_bed": "bed",
+    "minecraft:light_gray_bed": "bed",
+    "minecraft:cyan_bed": "bed",
+    "minecraft:purple_bed": "bed",
+    "minecraft:blue_bed": "bed",
+    "minecraft:brown_bed": "bed",
+    "minecraft:green_bed": "bed",
+    "minecraft:red_bed": "bed",
+    "minecraft:black_bed": "bed",
+
+    "minecraft:chest": "chest",
+    "minecraft:trapped_chest": "chest",
+    "minecraft:ender_chest": "chest",
+
+    "minecraft:anvil": "anvil",
+    "minecraft:chipped_anvil": "anvil",
+    "minecraft:damaged_anvil": "anvil",
+
+    "minecraft:cauldron": "cauldron",
+    "minecraft:water_cauldron": "cauldron",
+    "minecraft:lava_cauldron": "cauldron",
+    "minecraft:powder_snow_cauldron": "cauldron",
+
+    "minecraft:hopper": "hopper",
+    "minecraft:brewing_stand": "brewing_stand",
+    "minecraft:enchanting_table": "enchanting_table",
+    "minecraft:end_portal_frame": "end_portal_frame",
+    "minecraft:dragon_egg": "dragon_egg",
+    "minecraft:bell": "bell",
+    "minecraft:campfire": "campfire",
+    "minecraft:soul_campfire": "campfire",
+    "minecraft:grindstone": "grindstone",
+    "minecraft:lectern": "lectern",
+    "minecraft:stonecutter": "stonecutter",
+    "minecraft:composter": "composter",
+    "minecraft:bee_nest": "beehive",
+    "minecraft:beehive": "beehive",
+
+    "minecraft:candle": "candle",
+    "minecraft:white_candle": "candle",
+    "minecraft:orange_candle": "candle",
+    "minecraft:magenta_candle": "candle",
+    "minecraft:light_blue_candle": "candle",
+    "minecraft:yellow_candle": "candle",
+    "minecraft:lime_candle": "candle",
+    "minecraft:pink_candle": "candle",
+    "minecraft:gray_candle": "candle",
+    "minecraft:light_gray_candle": "candle",
+    "minecraft:cyan_candle": "candle",
+    "minecraft:purple_candle": "candle",
+    "minecraft:blue_candle": "candle",
+    "minecraft:brown_candle": "candle",
+    "minecraft:green_candle": "candle",
+    "minecraft:red_candle": "candle",
+    "minecraft:black_candle": "candle",
+
+    "minecraft:small_amethyst_bud": "amethyst_cluster",
+    "minecraft:medium_amethyst_bud": "amethyst_cluster",
+    "minecraft:large_amethyst_bud": "amethyst_cluster",
+    "minecraft:amethyst_cluster": "amethyst_cluster",
+
+    "minecraft:pointed_dripstone": "pointed_dripstone",
+    "minecraft:sculk_sensor": "sculk_sensor",
+    "minecraft:calibrated_sculk_sensor": "sculk_sensor",
+    "minecraft:decorated_pot": "decorated_pot",
+
+    "minecraft:skeleton_skull": "head",
+    "minecraft:skeleton_wall_skull": "head",
+    "minecraft:wither_skeleton_skull": "head",
+    "minecraft:wither_skeleton_wall_skull": "head",
+    "minecraft:zombie_head": "head",
+    "minecraft:zombie_wall_head": "head",
+    "minecraft:player_head": "head",
+    "minecraft:player_wall_head": "head",
+    "minecraft:creeper_head": "head",
+    "minecraft:creeper_wall_head": "head",
+    "minecraft:dragon_head": "head",
+    "minecraft:dragon_wall_head": "head",
+    "minecraft:piglin_head": "head",
+    "minecraft:piglin_wall_head": "head",
+
+    "minecraft:flower_pot": "flower_pot",
+    "minecraft:potted_oak_sapling": "flower_pot",
+    "minecraft:potted_spruce_sapling": "flower_pot",
+    "minecraft:potted_birch_sapling": "flower_pot",
+    "minecraft:potted_jungle_sapling": "flower_pot",
+    "minecraft:potted_acacia_sapling": "flower_pot",
+    "minecraft:potted_cherry_sapling": "flower_pot",
+    "minecraft:potted_dark_oak_sapling": "flower_pot",
+    "minecraft:potted_mangrove_propagule": "flower_pot",
+    "minecraft:potted_fern": "flower_pot",
+    "minecraft:potted_dandelion": "flower_pot",
+    "minecraft:potted_poppy": "flower_pot",
+    "minecraft:potted_blue_orchid": "flower_pot",
+    "minecraft:potted_allium": "flower_pot",
+    "minecraft:potted_azure_bluet": "flower_pot",
+    "minecraft:potted_red_tulip": "flower_pot",
+    "minecraft:potted_orange_tulip": "flower_pot",
+    "minecraft:potted_white_tulip": "flower_pot",
+    "minecraft:potted_pink_tulip": "flower_pot",
+    "minecraft:potted_oxeye_daisy": "flower_pot",
+    "minecraft:potted_cornflower": "flower_pot",
+    "minecraft:potted_lily_of_the_valley": "flower_pot",
+    "minecraft:potted_wither_rose": "flower_pot",
+    "minecraft:potted_torchflower": "flower_pot",
+    "minecraft:potted_red_mushroom": "flower_pot",
+    "minecraft:potted_brown_mushroom": "flower_pot",
+    "minecraft:potted_dead_bush": "flower_pot",
+    "minecraft:potted_cactus": "flower_pot",
+    "minecraft:potted_bamboo": "flower_pot",
+    "minecraft:potted_azalea_bush": "flower_pot",
+    "minecraft:potted_flowering_azalea_bush": "flower_pot",
+    "minecraft:potted_crimson_fungus": "flower_pot",
+    "minecraft:potted_warped_fungus": "flower_pot",
+    "minecraft:potted_crimson_roots": "flower_pot",
+    "minecraft:potted_warped_roots": "flower_pot",
+
+    "minecraft:rail": "rail",
+    "minecraft:powered_rail": "rail",
+    "minecraft:detector_rail": "rail",
+    "minecraft:activator_rail": "rail",
+
+    "minecraft:ladder": "ladder",
+    "minecraft:snow": "snow_layer",
+    "minecraft:farmland": "farmland",
+    "minecraft:dirt_path": "path",
+
+    "minecraft:cake": "cake",
+    "minecraft:candle_cake": "cake",
+    "minecraft:white_candle_cake": "cake",
+    "minecraft:orange_candle_cake": "cake",
+    "minecraft:magenta_candle_cake": "cake",
+    "minecraft:light_blue_candle_cake": "cake",
+    "minecraft:yellow_candle_cake": "cake",
+    "minecraft:lime_candle_cake": "cake",
+    "minecraft:pink_candle_cake": "cake",
+    "minecraft:gray_candle_cake": "cake",
+    "minecraft:light_gray_candle_cake": "cake",
+    "minecraft:cyan_candle_cake": "cake",
+    "minecraft:purple_candle_cake": "cake",
+    "minecraft:blue_candle_cake": "cake",
+    "minecraft:brown_candle_cake": "cake",
+    "minecraft:green_candle_cake": "cake",
+    "minecraft:red_candle_cake": "cake",
+    "minecraft:black_candle_cake": "cake",
+
+    "minecraft:end_rod": "end_rod",
+    "minecraft:lightning_rod": "lightning_rod",
+
+    "minecraft:piston": "piston",
+    "minecraft:sticky_piston": "piston",
+    "minecraft:piston_head": "piston_head",
+    "minecraft:moving_piston": "piston",
+
+    "minecraft:daylight_detector": "daylight_detector",
+    "minecraft:repeater": "repeater",
+    "minecraft:comparator": "comparator",
+    "minecraft:tripwire_hook": "tripwire_hook",
+    "minecraft:tripwire": "tripwire",
+    "minecraft:redstone_wire": "redstone_wire",
+
+    "minecraft:cocoa": "cocoa",
+    "minecraft:turtle_egg": "turtle_egg",
+    "minecraft:sea_pickle": "sea_pickle",
+    "minecraft:conduit": "conduit",
+    "minecraft:scaffolding": "scaffolding",
+    "minecraft:frogspawn": "carpet",
+    "minecraft:lily_pad": "carpet",
+    "minecraft:sculk_vein": "carpet",
+
+    "minecraft:air": "custom",
+    "minecraft:cave_air": "custom",
+    "minecraft:void_air": "custom",
+    "minecraft:water": "custom",
+    "minecraft:lava": "custom",
+    "minecraft:bubble_column": "custom"
+  }
+}
