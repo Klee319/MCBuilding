@@ -265,14 +265,20 @@ export function generateGeometry(
     // Generic facing rotation for non-stair blocks
     if (shapeDef.rotatable && facing) {
       if (shapeDef.facingMode === 'directional') {
-        // 6-direction blocks: default model points UP
-        if (facing === 'down') {
-          resultGeometry.rotateX(Math.PI);
-        } else if (facing !== 'up') {
-          resultGeometry.rotateX(-Math.PI / 2);
-          const angle = FACING_ROTATIONS[facing] ?? 0;
-          if (angle !== 0) resultGeometry.rotateY(angle);
-        }
+        // 6-direction blocks: rotation values from official Minecraft blockstate JSON
+        // (e.g., amethyst_cluster.json, end_rod.json, lightning_rod.json)
+        // Default model points UP (facing=up has no rotation)
+        const DIRECTIONAL_ROTATIONS: Record<string, { x: number; y: number }> = {
+          up:    { x: 0,            y: 0 },
+          down:  { x: Math.PI,      y: 0 },              // x=180
+          north: { x: Math.PI / 2,  y: 0 },              // x=90
+          south: { x: Math.PI / 2,  y: Math.PI },        // x=90, y=180
+          east:  { x: Math.PI / 2,  y: Math.PI / 2 },    // x=90, y=90
+          west:  { x: Math.PI / 2,  y: 3 * Math.PI / 2 }, // x=90, y=270
+        };
+        const rot = DIRECTIONAL_ROTATIONS[facing] ?? { x: 0, y: 0 };
+        if (rot.x !== 0) resultGeometry.rotateX(rot.x);
+        if (rot.y !== 0) resultGeometry.rotateY(rot.y);
       } else {
         // Horizontal-only blocks
         if (facing !== 'up' && facing !== 'down') {

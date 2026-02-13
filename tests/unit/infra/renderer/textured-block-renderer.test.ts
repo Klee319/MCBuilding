@@ -21,177 +21,201 @@ describe('UV Scaling for Non-Full Blocks', () => {
     width: number;
     height: number;
     depth: number;
+    fromX?: number;
+    fromY?: number;
+    fromZ?: number;
   }
 
+  /**
+   * Minecraft auto-UV algorithm: UV coordinates derived from box position and size.
+   * Matches the implementation in TexturedBlockRenderer.ts.
+   */
   function scaleUVForFace(
     uv: UVCoords,
     face: 'top' | 'bottom' | 'north' | 'south' | 'east' | 'west',
     dimensions: BoxDimensions
   ): UVCoords {
     const { width, height, depth } = dimensions;
-    const heightScale = height / 16;
-    const widthScale = width / 16;
-    const depthScale = depth / 16;
+    const fx = dimensions.fromX ?? 0;
+    const fy = dimensions.fromY ?? 0;
+    const fz = dimensions.fromZ ?? 0;
+    const tx = fx + width;
+    const ty = fy + height;
+    const tz = fz + depth;
+
     const uRange = uv.u2 - uv.u1;
     const vRange = uv.v2 - uv.v1;
 
+    let uOffset: number, uScale: number, vOffset: number, vScale: number;
+
     switch (face) {
-      case 'top':
-      case 'bottom':
-        return {
-          u1: uv.u1,
-          v1: uv.v1,
-          u2: uv.u1 + uRange * widthScale,
-          v2: uv.v1 + vRange * depthScale,
-        };
       case 'north':
+        uOffset = fx / 16; uScale = width / 16;
+        vOffset = (16 - ty) / 16; vScale = height / 16;
+        break;
       case 'south':
-        return {
-          u1: uv.u1,
-          v1: uv.v1,
-          u2: uv.u1 + uRange * widthScale,
-          v2: uv.v1 + vRange * heightScale,
-        };
+        uOffset = (16 - tx) / 16; uScale = width / 16;
+        vOffset = (16 - ty) / 16; vScale = height / 16;
+        break;
       case 'east':
+        uOffset = (16 - tz) / 16; uScale = depth / 16;
+        vOffset = (16 - ty) / 16; vScale = height / 16;
+        break;
       case 'west':
-        return {
-          u1: uv.u1,
-          v1: uv.v1,
-          u2: uv.u1 + uRange * depthScale,
-          v2: uv.v1 + vRange * heightScale,
-        };
+        uOffset = fz / 16; uScale = depth / 16;
+        vOffset = (16 - ty) / 16; vScale = height / 16;
+        break;
+      case 'top':
+        uOffset = fx / 16; uScale = width / 16;
+        vOffset = fz / 16; vScale = depth / 16;
+        break;
+      case 'bottom':
+        uOffset = fx / 16; uScale = width / 16;
+        vOffset = (16 - tz) / 16; vScale = depth / 16;
+        break;
       default:
         return uv;
     }
+
+    return {
+      u1: uv.u1 + uRange * uOffset,
+      v1: uv.v1 + vRange * vOffset,
+      u2: uv.u1 + uRange * (uOffset + uScale),
+      v2: uv.v1 + vRange * (vOffset + vScale),
+    };
   }
 
-  describe('scaleUVForFace', () => {
-    const fullBlockUV: UVCoords = { u1: 0, v1: 0, u2: 0.0625, v2: 0.0625 };
+  describe('scaleUVForFace (Minecraft auto-UV)', () => {
+    const T = 0.0625; // tile size in atlas (16/256)
 
-    it('returns unchanged UVs for full block dimensions', () => {
+    it('returns unchanged UVs for full block at origin [0,0,0]-[16,16,16]', () => {
       const fullBlock: BoxDimensions = { width: 16, height: 16, depth: 16 };
+      const uv: UVCoords = { u1: 0, v1: 0, u2: T, v2: T };
 
-      const scaledTop = scaleUVForFace(fullBlockUV, 'top', fullBlock);
-      const scaledNorth = scaleUVForFace(fullBlockUV, 'north', fullBlock);
-      const scaledEast = scaleUVForFace(fullBlockUV, 'east', fullBlock);
+      const scaledTop = scaleUVForFace(uv, 'top', fullBlock);
+      const scaledNorth = scaleUVForFace(uv, 'north', fullBlock);
+      const scaledEast = scaleUVForFace(uv, 'east', fullBlock);
 
-      expect(scaledTop.u2).toBeCloseTo(0.0625);
-      expect(scaledTop.v2).toBeCloseTo(0.0625);
-      expect(scaledNorth.u2).toBeCloseTo(0.0625);
-      expect(scaledNorth.v2).toBeCloseTo(0.0625);
-      expect(scaledEast.u2).toBeCloseTo(0.0625);
-      expect(scaledEast.v2).toBeCloseTo(0.0625);
+      expect(scaledTop.u1).toBeCloseTo(0);
+      expect(scaledTop.v1).toBeCloseTo(0);
+      expect(scaledTop.u2).toBeCloseTo(T);
+      expect(scaledTop.v2).toBeCloseTo(T);
+      expect(scaledNorth.u2).toBeCloseTo(T);
+      expect(scaledNorth.v2).toBeCloseTo(T);
+      expect(scaledEast.u2).toBeCloseTo(T);
+      expect(scaledEast.v2).toBeCloseTo(T);
     });
 
-    it('scales side face V by half for slab (height=8)', () => {
+    it('slab [0,0,0]-[16,8,16]: north face shows bottom half of texture', () => {
+      // Slab from y=0 to y=8: north face vOffset = (16-8)/16 = 0.5
       const slab: BoxDimensions = { width: 16, height: 8, depth: 16 };
+      const uv: UVCoords = { u1: 0, v1: 0, u2: T, v2: T };
 
-      const scaledNorth = scaleUVForFace(fullBlockUV, 'north', slab);
-      const scaledEast = scaleUVForFace(fullBlockUV, 'east', slab);
+      const scaledNorth = scaleUVForFace(uv, 'north', slab);
 
-      // V should be scaled by 0.5 (8/16)
-      expect(scaledNorth.v2).toBeCloseTo(0.03125); // 0.0625 * 0.5
-      expect(scaledEast.v2).toBeCloseTo(0.03125);
-
-      // U should remain full width
-      expect(scaledNorth.u2).toBeCloseTo(0.0625);
-      expect(scaledEast.u2).toBeCloseTo(0.0625);
+      // North: uOffset=0, uScale=1, vOffset=0.5, vScale=0.5
+      expect(scaledNorth.u1).toBeCloseTo(0);
+      expect(scaledNorth.u2).toBeCloseTo(T);      // full width
+      expect(scaledNorth.v1).toBeCloseTo(T * 0.5); // bottom half starts at 0.5
+      expect(scaledNorth.v2).toBeCloseTo(T);        // ends at full
     });
 
-    it('scales top/bottom faces by width and depth', () => {
-      const narrowBlock: BoxDimensions = { width: 8, height: 16, depth: 8 };
+    it('top-half slab [0,8,0]-[16,16,16]: north face shows top half of texture', () => {
+      const slab: BoxDimensions = { width: 16, height: 8, depth: 16, fromY: 8 };
+      const uv: UVCoords = { u1: 0, v1: 0, u2: T, v2: T };
 
-      const scaledTop = scaleUVForFace(fullBlockUV, 'top', narrowBlock);
+      const scaledNorth = scaleUVForFace(uv, 'north', slab);
 
-      // Both U and V should be scaled by 0.5
-      expect(scaledTop.u2).toBeCloseTo(0.03125);
-      expect(scaledTop.v2).toBeCloseTo(0.03125);
+      // North: vOffset = (16-16)/16 = 0, vScale = 0.5
+      expect(scaledNorth.v1).toBeCloseTo(0);        // top half
+      expect(scaledNorth.v2).toBeCloseTo(T * 0.5);
     });
 
-    it('scales east/west faces U by depth', () => {
-      const thinBlock: BoxDimensions = { width: 16, height: 16, depth: 2 };
+    it('stair upper step [8,8,0]-[16,16,16]: correct UV offsets', () => {
+      const stairUpper: BoxDimensions = {
+        width: 8, height: 8, depth: 16, fromX: 8, fromY: 8, fromZ: 0,
+      };
+      const uv: UVCoords = { u1: 0, v1: 0, u2: T, v2: T };
 
-      const scaledEast = scaleUVForFace(fullBlockUV, 'east', thinBlock);
+      // North face: uOffset=8/16=0.5, uScale=0.5, vOffset=0, vScale=0.5
+      const north = scaleUVForFace(uv, 'north', stairUpper);
+      expect(north.u1).toBeCloseTo(T * 0.5);  // starts at half
+      expect(north.u2).toBeCloseTo(T);          // ends at full
+      expect(north.v1).toBeCloseTo(0);           // top half
+      expect(north.v2).toBeCloseTo(T * 0.5);
 
-      // U should be scaled by 2/16 = 0.125
-      expect(scaledEast.u2).toBeCloseTo(0.0625 * 0.125);
-      // V should remain full (height = 16)
-      expect(scaledEast.v2).toBeCloseTo(0.0625);
+      // Top face: uOffset=0.5, uScale=0.5, vOffset=0, vScale=1
+      const top = scaleUVForFace(uv, 'top', stairUpper);
+      expect(top.u1).toBeCloseTo(T * 0.5);
+      expect(top.u2).toBeCloseTo(T);
+      expect(top.v1).toBeCloseTo(0);
+      expect(top.v2).toBeCloseTo(T);  // full depth
     });
 
-    it('handles stair step dimensions correctly', () => {
-      // Stair bottom part: full width, half height, full depth
-      const stairBottom: BoxDimensions = { width: 16, height: 8, depth: 16 };
-      // Stair top part: full width, half height, half depth
-      const stairTop: BoxDimensions = { width: 16, height: 8, depth: 8 };
+    it('narrow block [4,0,4]-[12,16,12]: centered UV', () => {
+      const narrow: BoxDimensions = {
+        width: 8, height: 16, depth: 8, fromX: 4, fromY: 0, fromZ: 4,
+      };
+      const uv: UVCoords = { u1: 0, v1: 0, u2: T, v2: T };
 
-      const bottomNorth = scaleUVForFace(fullBlockUV, 'north', stairBottom);
-      const topNorth = scaleUVForFace(fullBlockUV, 'north', stairTop);
-
-      // Both should have V scaled by 0.5 (half height)
-      expect(bottomNorth.v2).toBeCloseTo(0.03125);
-      expect(topNorth.v2).toBeCloseTo(0.03125);
-
-      // U for north face depends on width (both full)
-      expect(bottomNorth.u2).toBeCloseTo(0.0625);
-      expect(topNorth.u2).toBeCloseTo(0.0625);
-
-      // East face for top part: U scaled by depth (0.5)
-      const topEast = scaleUVForFace(fullBlockUV, 'east', stairTop);
-      expect(topEast.u2).toBeCloseTo(0.03125);
+      // Top face: uOffset=4/16=0.25, uScale=0.5, vOffset=4/16=0.25, vScale=0.5
+      const top = scaleUVForFace(uv, 'top', narrow);
+      expect(top.u1).toBeCloseTo(T * 0.25);
+      expect(top.u2).toBeCloseTo(T * 0.75);
+      expect(top.v1).toBeCloseTo(T * 0.25);
+      expect(top.v2).toBeCloseTo(T * 0.75);
     });
 
-    it('handles carpet dimensions (very flat)', () => {
+    it('carpet [0,0,0]-[16,1,16]: very thin north face', () => {
       const carpet: BoxDimensions = { width: 16, height: 1, depth: 16 };
+      const uv: UVCoords = { u1: 0, v1: 0, u2: T, v2: T };
 
-      const scaledNorth = scaleUVForFace(fullBlockUV, 'north', carpet);
+      const north = scaleUVForFace(uv, 'north', carpet);
 
-      // V should be scaled by 1/16
-      expect(scaledNorth.v2).toBeCloseTo(0.0625 * (1/16));
-      // U should remain full
-      expect(scaledNorth.u2).toBeCloseTo(0.0625);
+      // North: vOffset = (16-1)/16 = 15/16, vScale = 1/16
+      expect(north.u1).toBeCloseTo(0);
+      expect(north.u2).toBeCloseTo(T);
+      expect(north.v1).toBeCloseTo(T * (15/16));
+      expect(north.v2).toBeCloseTo(T);
     });
 
-    it('handles torch dimensions (thin post)', () => {
-      const torch: BoxDimensions = { width: 2, height: 10, depth: 2 };
+    it('fence post [6,0,6]-[10,16,10]: offset UV', () => {
+      const fencePost: BoxDimensions = {
+        width: 4, height: 16, depth: 4, fromX: 6, fromY: 0, fromZ: 6,
+      };
+      const uv: UVCoords = { u1: 0, v1: 0, u2: T, v2: T };
 
-      const scaledNorth = scaleUVForFace(fullBlockUV, 'north', torch);
-      const scaledTop = scaleUVForFace(fullBlockUV, 'top', torch);
-
-      // North face: U scaled by 2/16, V scaled by 10/16
-      expect(scaledNorth.u2).toBeCloseTo(0.0625 * 0.125);
-      expect(scaledNorth.v2).toBeCloseTo(0.0625 * 0.625);
-
-      // Top face: both U and V scaled by 2/16
-      expect(scaledTop.u2).toBeCloseTo(0.0625 * 0.125);
-      expect(scaledTop.v2).toBeCloseTo(0.0625 * 0.125);
+      // North: uOffset=6/16, uScale=4/16, vOffset=0, vScale=1
+      const north = scaleUVForFace(uv, 'north', fencePost);
+      expect(north.u1).toBeCloseTo(T * (6/16));
+      expect(north.u2).toBeCloseTo(T * (10/16));
+      expect(north.v1).toBeCloseTo(0);
+      expect(north.v2).toBeCloseTo(T);
     });
 
-    it('handles fence post dimensions', () => {
-      const fencePost: BoxDimensions = { width: 4, height: 16, depth: 4 };
+    it('east face uses Z for U axis', () => {
+      // East face: U maps to Z (mirrored), V maps to Y
+      const box: BoxDimensions = {
+        width: 16, height: 16, depth: 8, fromX: 0, fromY: 0, fromZ: 0,
+      };
+      const uv: UVCoords = { u1: 0, v1: 0, u2: T, v2: T };
 
-      const scaledNorth = scaleUVForFace(fullBlockUV, 'north', fencePost);
-
-      // U scaled by 4/16 = 0.25
-      expect(scaledNorth.u2).toBeCloseTo(0.0625 * 0.25);
-      // V full (height = 16)
-      expect(scaledNorth.v2).toBeCloseTo(0.0625);
+      // East: uOffset = (16 - 8) / 16 = 0.5, uScale = 0.5
+      const east = scaleUVForFace(uv, 'east', box);
+      expect(east.u1).toBeCloseTo(T * 0.5);
+      expect(east.u2).toBeCloseTo(T);
     });
 
-    it('handles wall arm dimensions', () => {
-      // Wall north arm: width=6, height=13, depth=5
-      const wallArm: BoxDimensions = { width: 6, height: 13, depth: 5 };
+    it('west face uses Z for U axis (non-mirrored)', () => {
+      const box: BoxDimensions = {
+        width: 16, height: 16, depth: 8, fromX: 0, fromY: 0, fromZ: 4,
+      };
+      const uv: UVCoords = { u1: 0, v1: 0, u2: T, v2: T };
 
-      const scaledNorth = scaleUVForFace(fullBlockUV, 'north', wallArm);
-      const scaledEast = scaleUVForFace(fullBlockUV, 'east', wallArm);
-
-      // North face: U scaled by 6/16, V scaled by 13/16
-      expect(scaledNorth.u2).toBeCloseTo(0.0625 * (6/16));
-      expect(scaledNorth.v2).toBeCloseTo(0.0625 * (13/16));
-
-      // East face: U scaled by 5/16, V scaled by 13/16
-      expect(scaledEast.u2).toBeCloseTo(0.0625 * (5/16));
-      expect(scaledEast.v2).toBeCloseTo(0.0625 * (13/16));
+      // West: uOffset = fromZ/16 = 0.25, uScale = 0.5
+      const west = scaleUVForFace(uv, 'west', box);
+      expect(west.u1).toBeCloseTo(T * 0.25);
+      expect(west.u2).toBeCloseTo(T * 0.75);
     });
   });
 });

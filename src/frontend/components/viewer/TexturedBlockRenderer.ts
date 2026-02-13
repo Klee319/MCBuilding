@@ -268,11 +268,14 @@ function createShapeGeometry(
     const result = boxesToGeometryWithFaceTracking(effectiveBoxes, THREE);
     const geometry = result.geometry;
 
-    // Calculate box dimensions for UV scaling
-    const boxDimensions = effectiveBoxes.map(box => ({
+    // Calculate box dimensions with position for Minecraft auto-UV
+    const boxDimensions: BoxDimensions[] = effectiveBoxes.map(box => ({
       width: box.to[0] - box.from[0],
       height: box.to[1] - box.from[1],
       depth: box.to[2] - box.from[2],
+      fromX: box.from[0],
+      fromY: box.from[1],
+      fromZ: box.from[2],
     }));
 
     // Debug: Log multi_box details once per shape
@@ -310,16 +313,18 @@ function createShapeGeometry(
           west: -Math.PI / 2,
         };
         if (shapeDef.facingMode === 'directional') {
-          // 6-direction blocks (amethyst buds, end rods, lightning rods):
-          // Default model points UP. Apply X tilt then Y rotation.
-          if (facing === 'down') {
-            geometry.rotateX(Math.PI);
-          } else if (facing !== 'up') {
-            // Tilt from vertical to horizontal, then rotate around Y
-            geometry.rotateX(-Math.PI / 2);
-            const yAngle = FACING_Y_ROTATIONS[facing] ?? 0;
-            if (yAngle !== 0) geometry.rotateY(yAngle);
-          }
+          // 6-direction blocks: rotation values from official Minecraft blockstate JSON
+          const DIRECTIONAL_ROTATIONS: Record<string, { x: number; y: number }> = {
+            up:    { x: 0,            y: 0 },
+            down:  { x: Math.PI,      y: 0 },              // x=180
+            north: { x: Math.PI / 2,  y: 0 },              // x=90
+            south: { x: Math.PI / 2,  y: Math.PI },        // x=90, y=180
+            east:  { x: Math.PI / 2,  y: Math.PI / 2 },    // x=90, y=90
+            west:  { x: Math.PI / 2,  y: 3 * Math.PI / 2 }, // x=90, y=270
+          };
+          const rot = DIRECTIONAL_ROTATIONS[facing] ?? { x: 0, y: 0 };
+          if (rot.x !== 0) geometry.rotateX(rot.x);
+          if (rot.y !== 0) geometry.rotateY(rot.y);
         } else {
           // Horizontal-only blocks (furnaces, chests, trapdoors, etc.)
           if (facing !== 'up' && facing !== 'down') {
@@ -511,12 +516,24 @@ interface BoxDimensions {
   readonly width: number;  // X size (0-16 scale)
   readonly height: number; // Y size (0-16 scale)
   readonly depth: number;  // Z size (0-16 scale)
+  readonly fromX?: number; // X start in 0-16 scale
+  readonly fromY?: number; // Y start in 0-16 scale
+  readonly fromZ?: number; // Z start in 0-16 scale
 }
 
 /**
- * Scale UV coordinates for a face based on box dimensions
- * Side faces (north, south, east, west) scale V based on height
- * Top/bottom faces scale based on width/depth
+ * Scale UV coordinates for a face based on box dimensions and position.
+ * Implements Minecraft's auto-UV algorithm: UV coordinates are derived from
+ * the box's position and size in the 0-16 grid, ensuring correct texture
+ * portion is shown for each face of each box element.
+ *
+ * UV mapping convention (matching Minecraft):
+ * - North (-Z): U=X, V=Y (inverted)
+ * - South (+Z): U=X (mirrored), V=Y (inverted)
+ * - East (+X): U=Z (mirrored), V=Y (inverted)
+ * - West (-X): U=Z, V=Y (inverted)
+ * - Top (+Y): U=X, V=Z
+ * - Bottom (-Y): U=X, V=Z (mirrored)
  */
 function scaleUVForFace(
   uv: UVCoords,
@@ -524,46 +541,71 @@ function scaleUVForFace(
   dimensions: BoxDimensions
 ): UVCoords {
   const { width, height, depth } = dimensions;
-
-  // Calculate scale factors (16 = full block)
-  const heightScale = height / 16;
-  const widthScale = width / 16;
-  const depthScale = depth / 16;
+  const fx = dimensions.fromX ?? 0;
+  const fy = dimensions.fromY ?? 0;
+  const fz = dimensions.fromZ ?? 0;
+  const tx = fx + width;
+  const ty = fy + height;
+  const tz = fz + depth;
 
   const uRange = uv.u2 - uv.u1;
   const vRange = uv.v2 - uv.v1;
 
+  let uOffset: number, uScale: number, vOffset: number, vScale: number;
+
   switch (face) {
-    case 'top':
-    case 'bottom':
-      // Top/bottom faces: scale U by width, V by depth
-      return {
-        u1: uv.u1,
-        v1: uv.v1,
-        u2: uv.u1 + uRange * widthScale,
-        v2: uv.v1 + vRange * depthScale,
-      };
     case 'north':
+      // North face (-Z): U maps to X, V maps to Y (top of texture = top of block)
+      uOffset = fx / 16;
+      uScale = width / 16;
+      vOffset = (16 - ty) / 16;
+      vScale = height / 16;
+      break;
     case 'south':
-      // North/South faces: scale U by width, V by height
-      return {
-        u1: uv.u1,
-        v1: uv.v1,
-        u2: uv.u1 + uRange * widthScale,
-        v2: uv.v1 + vRange * heightScale,
-      };
+      // South face (+Z): U maps to X (mirrored), V maps to Y
+      uOffset = (16 - tx) / 16;
+      uScale = width / 16;
+      vOffset = (16 - ty) / 16;
+      vScale = height / 16;
+      break;
     case 'east':
+      // East face (+X): U maps to Z (mirrored), V maps to Y
+      uOffset = (16 - tz) / 16;
+      uScale = depth / 16;
+      vOffset = (16 - ty) / 16;
+      vScale = height / 16;
+      break;
     case 'west':
-      // East/West faces: scale U by depth, V by height
-      return {
-        u1: uv.u1,
-        v1: uv.v1,
-        u2: uv.u1 + uRange * depthScale,
-        v2: uv.v1 + vRange * heightScale,
-      };
+      // West face (-X): U maps to Z, V maps to Y
+      uOffset = fz / 16;
+      uScale = depth / 16;
+      vOffset = (16 - ty) / 16;
+      vScale = height / 16;
+      break;
+    case 'top':
+      // Top face (+Y): U maps to X, V maps to Z
+      uOffset = fx / 16;
+      uScale = width / 16;
+      vOffset = fz / 16;
+      vScale = depth / 16;
+      break;
+    case 'bottom':
+      // Bottom face (-Y): U maps to X, V maps to Z (mirrored)
+      uOffset = fx / 16;
+      uScale = width / 16;
+      vOffset = (16 - tz) / 16;
+      vScale = depth / 16;
+      break;
     default:
       return uv;
   }
+
+  return {
+    u1: uv.u1 + uRange * uOffset,
+    v1: uv.v1 + vRange * vOffset,
+    u2: uv.u1 + uRange * (uOffset + uScale),
+    v2: uv.v1 + vRange * (vOffset + vScale),
+  };
 }
 
 /**
@@ -649,13 +691,16 @@ function applyUVsToGeometry(
     // Legacy: For multi_box without face tracking
     applyBoxUVsToMergedGeometry(geometry, faces);
   } else {
-    // For box type, apply standard box UVs with full dimension scaling
+    // For box type, apply standard box UVs with full dimension + position scaling
     const boxes = shapeDef.geometry.boxes;
     if (boxes && boxes.length > 0) {
       const dims: BoxDimensions = {
         width: boxes[0].to[0] - boxes[0].from[0],
         height: boxes[0].to[1] - boxes[0].from[1],
         depth: boxes[0].to[2] - boxes[0].from[2],
+        fromX: boxes[0].from[0],
+        fromY: boxes[0].from[1],
+        fromZ: boxes[0].from[2],
       };
       applyUVsToBoxGeometry(geometry as InstanceType<typeof import('three').BoxGeometry>, faces, dims);
     } else {
