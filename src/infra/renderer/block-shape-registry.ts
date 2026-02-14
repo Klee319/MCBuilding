@@ -95,8 +95,14 @@ const defaultShapes: Record<string, ShapeDefinition> = {
     rotatable: false,
   },
   torch: {
-    geometry: { type: 'cross' },
+    // MC torch model: thin vertical box (7,0,7)→(9,10,9)
+    geometry: { type: 'box', boxes: [{ from: [7, 0, 7], to: [9, 10, 9] }] },
     rotatable: false,
+  },
+  wall_torch: {
+    // MC wall_torch: positioned against south wall, rotatable to other walls
+    geometry: { type: 'box', boxes: [{ from: [7, 3, 11], to: [9, 13, 13] }] },
+    rotatable: true,
   },
   fence: {
     geometry: { type: 'box', boxes: [{ from: [6, 0, 6], to: [10, 16, 10] }] },
@@ -109,7 +115,8 @@ const defaultShapes: Record<string, ShapeDefinition> = {
     connectable: 'horizontal',
   },
   glass_pane: {
-    geometry: { type: 'box', boxes: [{ from: [7, 0, 0], to: [9, 16, 16] }] },
+    // Center post only - arms are added dynamically by createConnectableGeometry
+    geometry: { type: 'box', boxes: [{ from: [7, 0, 7], to: [9, 16, 9] }] },
     rotatable: false,
     connectable: 'horizontal',
   },
@@ -131,6 +138,18 @@ const defaultShapes: Record<string, ShapeDefinition> = {
       boxes: [
         { from: [5, 0, 5], to: [11, 7, 11] },
         { from: [6, 7, 6], to: [10, 9, 10] },
+      ],
+    },
+    rotatable: false,
+  },
+  hanging_lantern: {
+    // MC hanging lantern: body shifted up + chain above
+    geometry: {
+      type: 'multi_box',
+      boxes: [
+        { from: [5, 1, 5], to: [11, 8, 11] },
+        { from: [6, 8, 6], to: [10, 9, 10] },
+        { from: [7, 9, 7], to: [9, 16, 9] },
       ],
     },
     rotatable: false,
@@ -456,6 +475,7 @@ const shapePatterns: readonly ShapePattern[] = [
   { pattern: /_door$/, shape: 'door', matchType: 'suffix' },
   { pattern: /_pressure_plate$/, shape: 'pressure_plate', matchType: 'suffix' },
   { pattern: /_button$/, shape: 'button', matchType: 'suffix' },
+  { pattern: /wall_torch/, shape: 'wall_torch', matchType: 'contains' },
   { pattern: /torch/, shape: 'torch', matchType: 'contains' },
   { pattern: /_carpet$/, shape: 'carpet', matchType: 'suffix' },
   { pattern: /_pane$/, shape: 'glass_pane', matchType: 'suffix' },

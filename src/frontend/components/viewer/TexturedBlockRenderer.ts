@@ -300,8 +300,10 @@ function createShapeGeometry(
     const isStair = geomDef.type === 'multi_box' && stairShape;
     if (isStair && facing) {
       const rot = getStairRotation(facing, (stairShape ?? 'straight') as StairShapeVariant, half ?? 'bottom');
-      const xRad = (rot.xDeg * Math.PI) / 180;
-      const yRad = (rot.yDeg * Math.PI) / 180;
+      // Minecraft internally negates blockstate rotation angles:
+      // BlockModelRotation uses rotateYXZ(-y, -x, 0) in the source code
+      const xRad = -(rot.xDeg * Math.PI) / 180;
+      const yRad = -(rot.yDeg * Math.PI) / 180;
       if (xRad !== 0) geometry.rotateX(xRad);
       if (yRad !== 0) geometry.rotateY(yRad);
     } else {
@@ -313,14 +315,15 @@ function createShapeGeometry(
           west: -Math.PI / 2,
         };
         if (shapeDef.facingMode === 'directional') {
-          // 6-direction blocks: rotation values from official Minecraft blockstate JSON
+          // 6-direction blocks: from official Minecraft blockstate JSON
+          // Minecraft internally negates blockstate angles: rotateYXZ(-y, -x, 0)
           const DIRECTIONAL_ROTATIONS: Record<string, { x: number; y: number }> = {
-            up:    { x: 0,            y: 0 },
-            down:  { x: Math.PI,      y: 0 },              // x=180
-            north: { x: Math.PI / 2,  y: 0 },              // x=90
-            south: { x: Math.PI / 2,  y: Math.PI },        // x=90, y=180
-            east:  { x: Math.PI / 2,  y: Math.PI / 2 },    // x=90, y=90
-            west:  { x: Math.PI / 2,  y: 3 * Math.PI / 2 }, // x=90, y=270
+            up:    { x: 0,             y: 0 },
+            down:  { x: -Math.PI,      y: 0 },              // x=180 → -180
+            north: { x: -Math.PI / 2,  y: 0 },              // x=90 → -90
+            south: { x: -Math.PI / 2,  y: -Math.PI },        // x=90,y=180 → -90,-180
+            east:  { x: -Math.PI / 2,  y: -Math.PI / 2 },    // x=90,y=90 → -90,-90
+            west:  { x: -Math.PI / 2,  y: Math.PI / 2 },     // x=90,y=270 → -90,+90
           };
           const rot = DIRECTIONAL_ROTATIONS[facing] ?? { x: 0, y: 0 };
           if (rot.x !== 0) geometry.rotateX(rot.x);
@@ -920,8 +923,13 @@ function disposeMaterial(material: { dispose(): void; map?: { dispose(): void } 
 /**
  * Detect block shape from block name (registry-based)
  */
-export function detectBlockShape(blockName: string, _properties?: Record<string, string>): BlockShape {
-  return getShapeForBlock(blockName);
+export function detectBlockShape(blockName: string, properties?: Record<string, string>): BlockShape {
+  const base = getShapeForBlock(blockName);
+  // Hanging lanterns use a different model
+  if (base === 'lantern' && properties?.['hanging'] === 'true') {
+    return 'hanging_lantern';
+  }
+  return base;
 }
 
 /**

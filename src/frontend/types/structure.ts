@@ -51,10 +51,12 @@ export type BlockShape =
   | 'pressure_plate' // 感圧板
   | 'button'         // ボタン
   | 'torch'          // 松明
+  | 'wall_torch'     // 壁松明
   | 'carpet'         // カーペット
   | 'glass_pane'     // 板ガラス
   | 'chain'          // 鎖
   | 'lantern'        // ランタン
+  | 'hanging_lantern' // 吊りランタン
   | 'cross'          // クロス型（花・草等）
   // 拡張形状
   | 'lever'          // レバー

@@ -147,8 +147,8 @@ export type LodLevel = 'full' | 'high' | 'medium' | 'low' | 'preview';
  */
 export type BlockShape =
   | 'full' | 'stairs' | 'slab' | 'fence' | 'wall' | 'door' | 'trapdoor'
-  | 'pressure_plate' | 'button' | 'torch' | 'carpet' | 'glass_pane' | 'chain'
-  | 'lantern' | 'cross' | 'lever' | 'sign' | 'banner' | 'bed' | 'chest'
+  | 'pressure_plate' | 'button' | 'torch' | 'wall_torch' | 'carpet' | 'glass_pane' | 'chain'
+  | 'lantern' | 'hanging_lantern' | 'cross' | 'lever' | 'sign' | 'banner' | 'bed' | 'chest'
   | 'anvil' | 'cauldron' | 'hopper' | 'brewing_stand' | 'enchanting_table'
   | 'end_portal_frame' | 'dragon_egg' | 'bell' | 'campfire' | 'grindstone'
   | 'lectern' | 'stonecutter' | 'composter' | 'beehive' | 'candle'
